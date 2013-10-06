@@ -37,6 +37,9 @@
 
 			if( !id || !$element.length ) return;
 
+			this.links.removeClass('active');
+			$('[href="'+id+'"]').addClass('active');
+
 			var section = $element.prevAll('section');
 			var h = 0;
 			section.each(function(){
