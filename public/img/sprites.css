@@ -1,0 +1,100 @@
+.logo, .web_main_media_master-copy, .tv, .in, .fb, .l, .l-a, .r, .r-a, .pushka, .s-3d, .radio, .star, .video, .web, .small{
+	background: url(sprites.png) no-repeat;
+}
+
+.logo{
+	background-position: 0 0;
+	width: 314px;
+	height: 30px;
+}
+
+.web_main_media_master-copy{
+	background-position: -350px 0;
+	width: 25px;
+	height: 25px;
+}
+
+.tv{
+	background-position: -400px 0;
+	width: 22px;
+	height: 22px;
+}
+
+.in{
+	background-position: -428px 0;
+	width: 22px;
+	height: 22px;
+}
+
+.fb{
+	background-position: -460px 0;
+	width: 22px;
+	height: 22px;
+}
+
+.l{
+	background-position: 0 -50px ;
+	width: 20px;
+	height: 38px;
+}
+
+.l-a{
+	background-position: -30px -50px ;
+	width: 20px;
+	height: 38px;
+}
+
+.r{
+	background-position: -70px -50px ;
+	width: 20px;
+	height: 38px;
+}
+
+.r-a{
+	background-position: -110px -50px ;
+	width: 20px;
+	height: 38px;
+}
+
+.pushka{
+	background-position: -150px -50px ;
+	width: 147px;
+	height: 27px;
+}
+
+.s-3d{
+	background-position: -395px -50px ;
+	width: 66px;
+	height: 58px;
+}
+
+.radio{
+	background-position: -490px -50px ;
+	width: 44px;
+	height: 48px;
+}
+
+.star{
+	background-position: 0 -100px ;
+	width: 46px;
+	height: 44px;
+}
+
+.video{
+	background-position: -60px -100px ;
+	width: 56px;
+	height: 44px;
+}
+
+.web{
+	background-position: -325px -50px ;
+	width: 47px;
+	height: 39px;
+}
+
+.small{
+	background-position: -140px -100px ;
+	width: 8px;
+	height: 12px;
+}
+
