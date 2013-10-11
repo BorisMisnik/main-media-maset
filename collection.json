@@ -6,6 +6,9 @@
 		"aboutText" : "text"
 	},
 	{
+		"serviceText" : "text"
+	},
+	{
     	"type" : "service",
     	"name" : "branding"
 	}

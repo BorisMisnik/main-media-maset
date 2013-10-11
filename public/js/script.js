@@ -15,6 +15,12 @@
 			$('#works .div, .goback').hover(function(){
 				$(this).toggleClass('shadow');
 			});
+			if( window.location.hash !== '' ){
+				$('.now').removeClass('now');
+				$(window.location.hash).addClass('now');
+				this.setContainerHeight();
+			}
+
 		},
 		setSectionHeight : function(){
 			this.sections.each(function(){
