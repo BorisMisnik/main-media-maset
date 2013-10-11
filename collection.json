@@ -1,0 +1,12 @@
+[	
+	{
+		"mainText" : "test"
+	},
+	{
+		"aboutText" : "text"
+	},
+	{
+    	"type" : "service",
+    	"name" : "branding"
+	}
+]

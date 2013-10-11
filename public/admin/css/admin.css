@@ -1,0 +1,38 @@
+.editor textarea{
+	width:800px;
+	height: 250px;
+}
+.client{
+	height: 104px;
+	line-height: 104px;
+	position: relative;
+	text-align: center;
+	margin-bottom:20px;
+	border:1px solid silver;
+}
+.client button{
+	bottom: 0;
+	left:50%;
+	margin-left: -40px;
+	position: absolute;
+}
+.client img{
+	max-width: 68px;
+}
+
+.input-xlarge{
+	height: 40px !important;
+}
+#about .span3{
+	height: 151px;
+}
+#about .span3 img{
+	max-height: 153px;
+}
+#service .well input{
+	position: relative;
+	margin:-3px 10px 0 0
+}
+#service .well button{
+	margin-top: 14px;
+}

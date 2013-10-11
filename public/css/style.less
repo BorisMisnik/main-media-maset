@@ -29,6 +29,11 @@
 			url('../fonts/MyriadPro-It.svg') format('svg');
 }
 img{border:0;}
+video{
+	height:400px;
+	display: block;
+	margin: auto;
+}
 body,html{
 	margin:0;
 	width:100%;
@@ -67,7 +72,7 @@ header{
 		background: -o-linear-gradient(top,  rgba(255,255,255,.1) 0%, rgba(0,0,0,.1) 100%);
 		background: -ms-linear-gradient(top,  rgba(255,255,255,.1) 0%, rgba(0,0,0,.1) 100%);
 		background: linear-gradient(to bottom, rgba(255,255,255,.1) 0%, rgba(0,0,0,.1) 100%);
-
+		
 	}
 	#logo{
 		position: absolute;
@@ -83,15 +88,18 @@ header{
 		position: absolute;
 		top:0;
 		right:0;
-		display: table;
+		display: block;
 		overflow: hidden;
 		width:auto;
-		height:100%;
+		height:63px;
+		z-index: 1;
+		vertical-align: middle;
 	}
 	nav a{
 		position: relative; 
-		display: table-cell;
+		display: inline-block;
 		min-width: 84px;
+		height: 60px;
 		border-bottom: 3px solid transparent;
 		border-left: 1px solid #e1e1e1;
 		color:#464646;
@@ -99,6 +107,7 @@ header{
 		text-align: center;
 		text-decoration: none;
 		font-size: 16px;
+		line-height: 60px;
 		-webkit-transition:color,border 500ms ease-in-out;
 		transition:color,border 500ms ease-in-out;	
 		span{
@@ -117,7 +126,7 @@ header{
 	}
 	nav .mb{
 	    position: relative;
-	    top: 4px;
+	    top: 10px;
 	    left: 15px;
 	    display: inline-block;
 	    margin-right: 26px;
@@ -135,7 +144,7 @@ header{
 		}
 		strong{
 			position: relative;
-			top: -4px;
+			top:1px;
 			font-weight: 100;
 		}
 	}

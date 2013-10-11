@@ -32,7 +32,7 @@
 			e.preventDefault();
 
 			var id = $(e.target).attr('href') || $(e.target).parents('a').attr('href'),
-				$element = $('#' + id),
+				$element = $(id),
 				_this = this;
 
 			if( !id || !$element.length ) return;
@@ -62,7 +62,7 @@
 
 			// scroll container
 			this.setContainerHeight();
-			this.container.animate({'scrollTop' : h }, 1000);
+			this.container.animate({'scrollTop' : h }, 1000, function(){ window.location.href = id; });
 		},
 		workSlider : function(){
 			$('#works').on('click', '.div', slideToWork);
