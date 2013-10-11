@@ -108,22 +108,83 @@ html(ng-app="admin")
 							textarea.textarea(placeholder='Enter text ...')
 							br
 							button(type="button", class="btn btn-success btn-large", ng-click="save()") Save
-						form(class="span6 well", style="margin:0 0 20px;")
-							.control-group
-								h4 Branding
-								.controls#branding
-									//- branding
-									textarea.form-control(
-										type='text', 
-										placeholder='Branding', 
-										name="branding"
-										style="min-width:400px; min-height:100px;"
-										value="{{$scope.branding}}")
-									br
-									input(type="checkbox", name="branding_visible") 
-									|Hide
-									br
-									button(type="button", class="btn btn-success btn-large", ng-click="saveItem('branding')") Save
+						form(style="margin:0 0 20px;")
+							.control-group.row
+								.span6
+									h4 Branding
+									.controls#branding
+										//- branding
+										textarea.form-control(
+											type='text', 
+											placeholder='Branding', 
+											name="branding"
+											style="min-width:400px; min-height:100px;"
+											value="{{$scope.branding}}")
+										br
+										input(type="checkbox", name="branding_visible") 
+										|Hide
+										br
+										button(type="button", class="btn btn-success btn-large", ng-click="saveItem('branding')") Save
+								.span6
+									h4 Video
+									.controls#video
+										//- video
+										textarea.form-control(
+											type='text', 
+											placeholder='Video', 
+											name="video"
+											style="min-width:400px; min-height:100px;"
+											value="{{$scope.video}}")
+										br
+										input(type="checkbox") 
+										|Hide
+										br
+										button(type="button", class="btn btn-success btn-large", ng-click="saveItem('video')") Save
+								.span6		
+									h4 3D
+									.controls#D3
+										//- 3d
+										textarea.form-control(
+											type='text', 
+											placeholder='3D', 
+											name="D3"
+											style="min-width:400px; min-height:100px;"
+											value="{{$scope.D3}}")
+										br
+										input(type="checkbox") 
+										|Hide
+										br
+										button(type="button", class="btn btn-success btn-large", ng-click="saveItem('D3')") Save
+								.span6
+									h4 Radio
+									.controls#radio
+										//- radio
+										textarea.form-control(
+											type='text', 
+											placeholder='radio', 
+											name="radio"
+											style="min-width:400px; min-height:100px;"
+											value="{{$scope.radio}}")
+										br
+										input(type="checkbox") 
+										|Hide
+										br
+										button(type="button", class="btn btn-success btn-large", ng-click="saveItem('radio')") Save
+								.span6
+									h4 Web
+									.controls#web
+										//- web
+										textarea.form-control(
+											type='text', 
+											placeholder='web', 
+											name="web"
+											style="min-width:400px; min-height:100px;"
+											value="{{$scope.web}}")
+										br
+										input(type="checkbox") 
+										|Hide
+										br
+										button(type="button", class="btn btn-success btn-large", ng-click="saveItem('web')") Save
 					section#work(ng-controller="ControllerWork")
 						form(class="editor")
 							textarea.textarea(placeholder='Enter text ...')

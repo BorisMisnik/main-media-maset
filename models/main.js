@@ -52,7 +52,8 @@ exports.updateItem= function(query,set, callback){
 	if( !query || !set ) return callback('query is bad', null);
 
 	collection = collection || require('./index').collection;
-	collection.update(query, set, function(err, result){
+	collection.update(query, {$set:set}, function(err, result){
+		console.log(query)
 		if( err ) return callback( err );
 		if( result ) callback(null)
 	});

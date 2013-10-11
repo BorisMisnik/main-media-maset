@@ -11,5 +11,21 @@
 	{
     	"type" : "service",
     	"name" : "branding"
+	},
+	{
+    	"type" : "service",
+    	"name" : "video"
+	},
+	{
+    	"type" : "service",
+    	"name" : "D3"
+	},
+	{
+    	"type" : "service",
+    	"name" : "radio"
+	},
+	{
+    	"type" : "service",
+    	"name" : "web"
 	}
 ]

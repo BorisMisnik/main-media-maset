@@ -28,8 +28,7 @@ function ControllerMain($scope, Text, Items){
 			}
 
 		})
-	}
-
+	};
 };
 function ControllerAbout($scope, Text, Items){
 	var $textarea = $('#about .textarea');
@@ -75,25 +74,31 @@ function ControllerService($scope, Text, Items){
 			textarea = item.find('textarea').val(),
 			checkbox = item.find('input[type="checkbox"]').attr('checked') === 'checked' ?
 				true : false;
-
+		console.log(checkbox)			
 		Items.save({
 			type:'saveIteam', 
 			text:textarea, 
 			visible:checkbox, 
 			category:'service',
 			name : name}, function(respond){
-			console.log(respond);
+			if( respond.succsess === 'ok' )
+				window.location.reload();
 		});
 	};
-	// 
-	var items = ['branding'],
-		i = items.length - 1;
-	for (; i >= 0; i--) {
-		var item = items[i];
-		Items.query({type:'getItems', name:item}, function(res){
-			$scope[item] = res.data;
-		});
-	};
+	Items.query({type:'getItems', name:'service'}, function(res){
+		var result = res.data,
+			i = result.length - 1;
+		for (; i >= 0; i--) {
+			showContent(result[i]);
+		};
+	});
+
+	function showContent(obj){
+		var name = obj.name;
+		var form = $('#' + name);
+		form.children('textarea').text(obj.text);
+		form.children('input[type="checkbox"]').attr('checked', obj.visible);
+	}
 
 }
 function ControllerContacts($scope){
