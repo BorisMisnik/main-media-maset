@@ -55,20 +55,20 @@
 			$element.addClass('now');
 			// run animation
 			switch (id){
-				case 'about' :
+				case '#about' :
 					this.animateAbout();
 					break;
-				case 'service' :
+				case '#service' :
 					this.animateService();
 					break;
-				case 'contacts' :
+				case '#contacts' :
 					this.animateContacts();
 					break;
 			}
 
 			// scroll container
 			this.setContainerHeight();
-			this.container.animate({'scrollTop' : h }, 1000, function(){ window.location.href = id; });
+			this.container.animate({'scrollTop' : h }, 1000, function(){ });
 		},
 		workSlider : function(){
 			$('#works').on('click', '.div', slideToWork);
