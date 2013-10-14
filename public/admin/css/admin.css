@@ -36,3 +36,19 @@
 #service .well button{
 	margin-top: 14px;
 }
+#lognDescription{
+	min-width: 412px;
+	min-height: 150px;
+}
+input[type="radio"]{
+	position: relative;
+	top: -3px;
+	margin-right: 16px;
+	margin-left: 8px;
+}
+input[type="radio"]:first-child{
+	margin-left: 0;
+}
+.change{
+	display: none;
+}

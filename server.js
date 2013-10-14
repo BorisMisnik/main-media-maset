@@ -35,9 +35,7 @@ app.get('/admin/getItems', adminRouters.getItems); // get list items
 
 app.post('/admin/saveText', adminRouters.saveText); // save new text
 app.post('/admin/saveIteam', adminRouters.saveIteam); // save item
+app.post('/admin/saveWork', adminRouters.saveWork); // save work
 
 app.delete('/admin/removeItem', adminRouters.removeItem) // remove item
-
-// app.get('/admin/edit', admin.getAll);
-// app.delete('/admin/edit', admin.remove);
 

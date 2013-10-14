@@ -1,4 +1,5 @@
 var model = require('../models/main')
+	, async = require('async')
 	, fs = require('fs');
 
 // post */mainAbout/*
@@ -28,7 +29,6 @@ exports.getItems = function(req, res){
 }
 // post */addClient/*
 exports.saveIteam = function(req, res){
-	console.log(req.body)
 	if( req.files ){
 		var name = req.files.image.name;
 		var path = req.files.image.path;
@@ -62,6 +62,60 @@ exports.saveIteam = function(req, res){
 		}
 	}
 };
+// post */save work update work
+exports.saveWork = function(req, res){
+	async.series([
+		function(callback){ //save prewie
+			var name = req.files.previewimage.name;
+			var path = req.files.previewimage.path;
+			model.saveImage(name, path, function(err, result){
+				if( err ) return callback(err, null);
+				var img = '/uploads/' + name;
+				callback(null, img);
+			});
+		},
+		function(callback){ //save content file
+			if( req.files.file.name === '' ||  req.files.file.size === 0)
+				return callback(null, '');
+			var name = req.files.file.name;
+			var path = req.files.file.path;
+
+			model.saveImage(name, path, function(err, result){
+				if( err ) return callback(err, null);
+				var img = '/uploads/' + name;
+				callback(null, img);
+			});
+		}
+	], function(err, result){
+		var query = {};
+		query.title = req.body.title;
+		query.description = req.body.lognDescription;
+		query.typeContent = req.body.typeContent;
+		query.type = 'work';
+		if( result[0] !== '' )
+			query.prewie = result[0];
+		if( result[1] !== '' )
+			query.file = result[1];
+		if( req.body.update !== 'true' ){ // save new work
+			model.saveIteam(query, function(err, result){
+				if( err ) return console.log( err );
+				res.redirect('/admin');
+			});
+		}
+		else {
+			// update work
+			var find = {};
+			find.type = 'work';
+			find.title = req.body.oldTitle;
+			model.updateItem(find, query, function(err, result){ 
+				if( err ) return console.log( err );
+				res.redirect('/admin');
+			});
+		}
+		
+	})
+};
+// post update work/*
 
 // delete */removeItem/:id*
 exports.removeItem = function(req, res){
@@ -69,4 +123,4 @@ exports.removeItem = function(req, res){
 		if( err ) return console.log( err );
 		if(!err && result) res.send({result : 'ok'});
  	});
-}
+};

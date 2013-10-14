@@ -110,75 +110,65 @@ html(ng-app="admin")
 							button(type="button", class="btn btn-success btn-large", ng-click="save()") Save
 						form(style="margin:0 0 20px;")
 							.control-group.row
-								.span6
+								.span5.well
 									h4 Branding
 									.controls#branding
 										//- branding
 										textarea.form-control(
-											type='text', 
 											placeholder='Branding', 
 											name="branding"
-											style="min-width:400px; min-height:100px;"
 											value="{{$scope.branding}}")
 										br
 										input(type="checkbox", name="branding_visible") 
 										|Hide
 										br
 										button(type="button", class="btn btn-success btn-large", ng-click="saveItem('branding')") Save
-								.span6
+								.span5.well
 									h4 Video
 									.controls#video
 										//- video
 										textarea.form-control(
 											type='text', 
 											placeholder='Video', 
-											name="video"
-											style="min-width:400px; min-height:100px;"
 											value="{{$scope.video}}")
 										br
 										input(type="checkbox") 
 										|Hide
 										br
 										button(type="button", class="btn btn-success btn-large", ng-click="saveItem('video')") Save
-								.span6		
+								.span5.well		
 									h4 3D
 									.controls#D3
 										//- 3d
 										textarea.form-control(
-											type='text', 
 											placeholder='3D', 
 											name="D3"
-											style="min-width:400px; min-height:100px;"
 											value="{{$scope.D3}}")
 										br
 										input(type="checkbox") 
 										|Hide
 										br
 										button(type="button", class="btn btn-success btn-large", ng-click="saveItem('D3')") Save
-								.span6
+								.span5.well
 									h4 Radio
 									.controls#radio
 										//- radio
 										textarea.form-control(
-											type='text', 
 											placeholder='radio', 
 											name="radio"
-											style="min-width:400px; min-height:100px;"
 											value="{{$scope.radio}}")
 										br
 										input(type="checkbox") 
 										|Hide
 										br
 										button(type="button", class="btn btn-success btn-large", ng-click="saveItem('radio')") Save
-								.span6
+								.span5.well
 									h4 Web
 									.controls#web
 										//- web
 										textarea.form-control(
-											type='text', 
 											placeholder='web', 
 											name="web"
-											style="min-width:400px; min-height:100px;"
 											value="{{$scope.web}}")
 										br
 										input(type="checkbox") 
@@ -186,8 +176,100 @@ html(ng-app="admin")
 										br
 										button(type="button", class="btn btn-success btn-large", ng-click="saveItem('web')") Save
 					section#work(ng-controller="ControllerWork")
-						form(class="editor")
-							textarea.textarea(placeholder='Enter text ...')
+						.row
+							.span12
+						.div.change.span12.well
+							h3 Change work
+								form(method="post", action="/admin/saveWork", 
+									enctype="multipart/form-data")
+										.control-group
+											label.control-label(for='title') Title
+										.controls
+											input.title.form-control(type='text',
+													placeholder='Title', 
+													name="title"
+													maxlength="38",
+													class="input-xlarge")
+										.control-group
+											label.control-label() Description
+										.controls
+											textarea.description.form-control(
+													name="lognDescription")
+										.control-group
+											label.control-label(for='previewimage') Preview image
+										.controls
+											input#previewimage.form-control(type='file',
+													name="previewimage",
+													accept="image/*")
+										.control-group
+											label.control-label(for='') Type
+										.controls
+											input#previmage.form-control(type='radio',name="typeContent", value="image") 
+											|Image
+											input#previmage.form-control(type='radio',name="typeContent", value="video") 
+											|Video
+										.control-group
+											label.control-label(for='file') File
+										.controls
+											input#file.form-control(type='file',
+													name="file")
+										input(type="hidden", name="update", value="true")
+										input.oldTitle(type="hidden", name="oldTitle", value="")
+										button.btn.btn-primary(type='submit', style="margin:10px 0 0;") Go!
+						table(class="table table-striped")
+							tr
+								th Title
+								th Изменить
+								th Удалить
+							tr(ng-repeat="work in works")
+								td {{work.title}}
+								td 
+									button.btn.btn-warning(ng-click="change(work._id, work.title, work.description)") Изменить
+								td 
+									button.btn.btn-danger(ng-click="remove(work._id)") Удалить
+						h3 Add work
+						.row
+							.span12.well
+								form(method="post", action="/admin/saveWork", 
+								enctype="multipart/form-data")
+									.control-group
+										label.control-label(for='title') Title
+									.controls
+										input#title.form-control(type='text',
+												placeholder='Title', 
+												name="title", 
+												required,
+												maxlength="38",
+												class="input-xlarge")
+									.control-group
+										label.control-label(for='lognDescription') Description
+									.controls
+										textarea#lognDescription.form-control(
+												name="lognDescription",
+												required)
+									.control-group
+										label.control-label(for='previewimage') Preview image
+									.controls
+										input#previewimage.form-control(type='file',
+												name="previewimage",
+												accept="image/*",
+												required)
+									.control-group
+										label.control-label(for='') Type
+									.controls
+										input#previmage.form-control(type='radio',name="typeContent", value="image") 
+										|Image
+										input#previmage.form-control(type='radio',name="typeContent", value="video") 
+										|Video
+									.control-group
+										label.control-label(for='file') File
+									.controls
+										input#file.form-control(type='file',
+												name="file")
+									input(type="hidden", name="category", value="work")
+									button.btn.btn-primary(type='submit', style="margin:10px 0 0;") Go!
+
+
 					section#contactacs(ng-controller="ControllerContacts")
 						form(class="editor")
 							textarea.textarea(placeholder='Enter text ...')

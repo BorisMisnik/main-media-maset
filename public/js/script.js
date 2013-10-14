@@ -137,6 +137,18 @@
 			$('#scroll').niceScroll(); // enable nice scroll
 			$('#liquid').liquidcarousel({height:104}); // init carousel pgin page about
 			// alert($.browser.mobile )
+
+			// crate video
+  			videojs.options.flash.swf = "js/video-js.swf"
+  			videojs('main_player',{ "controls": true, "autoplay": false, "preload": "auto" }).ready(function(){
+  				var myPlayer = this;
+  				myPlayer.src([
+					{ type: "video/webm", src: "video/MainMediaMaster.webm" },
+					{ type: "video/ogg", src: "video/MainMediaMaster.ogv" },
+					{ type: "video/mp4", src: "video/MainMediaMaster.mp4" },
+				]);
+
+			});
 		})()
 	};
 

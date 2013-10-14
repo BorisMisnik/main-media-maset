@@ -38,7 +38,9 @@ exports.getItems = function(name, callback){
 		callback(err, items);
 	});
 };
-
+exports.getItem = function(req, res){
+	console.log()
+}
 exports.saveIteam = function(query, callback){
 	if( !query ) return callback('query is bad', null);
 
@@ -52,7 +54,7 @@ exports.updateItem= function(query,set, callback){
 	if( !query || !set ) return callback('query is bad', null);
 
 	collection = collection || require('./index').collection;
-	collection.update(query, {$set:set}, function(err, result){
+	collection.update(query, { $setOnInsert:set}, {upsert:true},function(err, result){
 		console.log(query)
 		if( err ) return callback( err );
 		if( result ) callback(null)

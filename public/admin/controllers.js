@@ -74,7 +74,7 @@ function ControllerService($scope, Text, Items){
 			textarea = item.find('textarea').val(),
 			checkbox = item.find('input[type="checkbox"]').attr('checked') === 'checked' ?
 				true : false;
-		console.log(checkbox)			
+
 		Items.save({
 			type:'saveIteam', 
 			text:textarea, 
@@ -97,13 +97,35 @@ function ControllerService($scope, Text, Items){
 		var name = obj.name;
 		var form = $('#' + name);
 		form.children('textarea').text(obj.text);
-		form.children('input[type="checkbox"]').attr('checked', obj.visible);
+		form.children('input[type="checkbox"]').attr('checked', !obj.visible);
 	}
 
 }
-function ControllerContacts($scope){
-
+function ControllerContacts($scope, Items){
+	
 }
-function ControllerWork($scope){
+function ControllerWork($scope, Items){
+	var $change = $('.change');
+
+	Items.query({type:'getItems', name:'work'}, function(res){
+		$scope.works = res.data;
+	});
+
+	$scope.remove = function(id){
+		Items.delete({id : id, type:'removeItem'}, function(response){
+			if( response.result === 'ok' ){
+				Items.query({type:'getItems', name:'work'}, function(res){
+					$scope.works = res.data;
+				});
+			}
+		});
+	};
+
+	$scope.change = function(id, title, description){
+		$change.show();
+		$change.find('.title').val(title);
+		$change.find('.description').val(description);
+		$change.find('.oldTitle').val(title);
+	};
 
 }
