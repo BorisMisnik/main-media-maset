@@ -68,7 +68,7 @@
 
 			// scroll container
 			this.setContainerHeight();
-			this.container.animate({'scrollTop' : h }, 1000, function(){ });
+			this.container.animate({'scrollTop' : h }, 1000, function(){ $('#scroll').getNiceScroll().resize();});
 		},
 		workSlider : function(){
 			$('#works').on('click', '.div', slideToWork);
