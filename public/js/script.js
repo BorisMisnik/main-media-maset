@@ -67,6 +67,9 @@
 				case '#service' :
 					this.animateService();
 					break;
+				case '#works':
+					this.crateVideoWork();
+					break;
 				case '#contacts' :
 					this.animateContacts();
 					break;
@@ -185,6 +188,18 @@
 				_this.contactText.show().addClass('animated fadeInDown');
 			},1200);
 		},
+		crateVideoWork : function(){
+			// page works
+			if( $('#works_player .vjs-control-bar').length ) return;
+
+  			videojs('works_player',{ "controls": true, "autoplay": false, "preload": "auto" }).ready(function(){
+  				var myPlayer = this;
+  				myPlayer.src([
+					{ type: "video/ogg", src: "video/iPhone5.ogv" },
+					{ type: "video/mp4", src: "video/iPhone5.mp4" }
+				]);
+			});
+		},
 		plugins : (function(){
 			$('#scroll').niceScroll(); // enable nice scroll
 			$('#liquid').liquidcarousel({height:104}); // init carousel pgin page about
@@ -201,19 +216,6 @@
 					{ type: "video/webm", src: "/video/MainMediaMaster.webm" }
 				]);
 			});
-  			// page works
-  			videojs('works_player',{ "controls": true, "autoplay": false, "preload": "auto" }).ready(function(){
-  				var myPlayer = this;
-  				myPlayer.src([
-					{ type: "video/ogg", src: "video/iPhone5.ogv" },
-					{ type: "video/mp4", src: "video/iPhone5.mp4" }
-				]);
-				// myPlayer.play();
-				// setTimeout(function(){
-				// 	myPlayer.pause();
-				// }, 1300);
-			});
-
 		})()
 	};
 
