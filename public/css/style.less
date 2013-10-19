@@ -149,6 +149,13 @@ header{
 			font-weight: 100;
 		}
 	}
+	nav .home{
+		display: none;
+		img{
+			position: relative;
+			top: 7px;
+		}
+	}
 }
 // footer
 footer{
@@ -365,6 +372,7 @@ footer{
 	}
 	img{
 		max-width: 151px;
+		max-height: 151px;
 		vertical-align: middle;
 	}
 	.img-wrapper{
@@ -417,6 +425,7 @@ footer{
 #service{
 	.grid{
 		width:925px;
+		text-align: center;
 		> .div{
 			margin-left: 99px;
 			width:241px;
@@ -426,6 +435,7 @@ footer{
 		}
 		.title{
 			border:none;
+			text-transform: capitalize;
 			&:after{
 				display: block;
 				margin:0 auto 20px;
@@ -443,7 +453,7 @@ footer{
 		margin-left: 190px !important;
 	}
 }
-.star{
+.branding{
 	width: 46px;
 	height: 44px;
 	background-position: 0 -100px ;
@@ -525,7 +535,7 @@ footer{
 	.title{
 		display: block;
 		float:left;
-		max-width: 50%;
+		max-width: 80%;
 		border:0;
 		text-transform: uppercase;
 		font-size: 28px;
@@ -604,4 +614,24 @@ video + div{
 	background-color: #fff;
 	position: absolute;
 	bottom: -1px;
+}
+.video-block,
+.img-block{
+	width:961px;
+	height:541px;
+	margin: auto;
+}
+.img-block{
+	text-align: center;
+	height: auto;
+	line-height: 1;
+	img{
+		max-width: 961px;
+		max-height: 541px;
+		vertical-align: middle;
+	}
+}
+#works_player{
+	margin:auto;
+	width:712px;
 }

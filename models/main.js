@@ -31,15 +31,20 @@ exports.saveText = function(name, text, callback){
 exports.getItems = function(name, callback){
 	var query = {};
 	query.type = name;
-
 	collection = collection || require('./index').collection;
 	collection.find(query).toArray(function(err, items) {
 		if( err ) return console.warn( err );
 		callback(err, items);
 	});
 };
-exports.getItem = function(req, res){
-	console.log()
+exports.getItem = function(id, callback){
+	var query = {_id:new ObjectID(id)};
+	collection = collection || require('./index').collection;
+	collection.find(query).toArray(function(err, items) {
+		if( err ) return console.warn( err );
+		console.log(items)
+		callback(err, items);
+	});
 }
 exports.saveIteam = function(query, callback){
 	if( !query ) return callback('query is bad', null);
@@ -54,8 +59,8 @@ exports.updateItem= function(query,set, callback){
 	if( !query || !set ) return callback('query is bad', null);
 
 	collection = collection || require('./index').collection;
-	collection.update(query, { $setOnInsert:set}, {upsert:true},function(err, result){
-		console.log(query)
+	console.log('set', set)
+	collection.update(query, {$set:set},{},function(err, result){
 		if( err ) return callback( err );
 		if( result ) callback(null)
 	});

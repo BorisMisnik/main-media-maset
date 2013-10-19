@@ -1,7 +1,7 @@
 // get admin */*
 exports.index = function(req ,res){
-	// console.log(req.session.login)
-	// req.session.login ? res.render('admin') : res.render('login');
+	console.log(req.session.login)
+	req.session.login ? res.render('admin') : res.render('login');
 	true ? res.render('admin') : res.render('login');
 };
 // get  */admin/login*

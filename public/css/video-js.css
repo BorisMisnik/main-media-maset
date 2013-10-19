@@ -79,7 +79,7 @@ The default control bar that is a container for most of the controls.
   position: absolute;
   /* Place control bar at the bottom of the player box/video.
      If you want more margin below the control bar, add more height. */
-  bottom: 0;
+  bottom: 5px;
   /* Use left/right to stretch to 100% width of player div */
   left: 0;
   right: 0;
@@ -751,11 +751,11 @@ body.vjs-full-window {
   visibility: visible;
 }
 .vjs-fade-out{
-  display: none;
+  display: none !important;
 }
-.vjs-default-skin .vjs-control-bar.vjs-fade-in{
+/*.vjs-default-skin .vjs-control-bar.vjs-fade-in{
   display: block;
-}
+}*/
 /* -----------------------------------------------------------------------------
 The original source of this file lives at
 https://github.com/videojs/video.js/blob/master/src/css/video-js.less */

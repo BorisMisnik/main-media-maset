@@ -32,6 +32,7 @@ app.get('/admin/login', admin.login);
 // main
 app.get('/admin/getText', adminRouters.getText); // get text
 app.get('/admin/getItems', adminRouters.getItems); // get list items
+app.get('/admin/getItem', adminRouters.getItem); // get list items
 
 app.post('/admin/saveText', adminRouters.saveText); // save new text
 app.post('/admin/saveIteam', adminRouters.saveIteam); // save item

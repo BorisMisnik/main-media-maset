@@ -9,6 +9,9 @@
 		"serviceText" : "text"
 	},
 	{
+		"contactsText" : "text"
+	},
+	{
     	"type" : "service",
     	"name" : "branding"
 	},

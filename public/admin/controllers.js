@@ -1,3 +1,4 @@
+
 function ControllerMain($scope, Text, Items){
 	var $textarea = $('#main .textarea');
 
@@ -49,14 +50,22 @@ function ControllerAbout($scope, Text, Items){
 		$scope.workers = res.data;
 	});
 
+	// remove item
+	$scope.removeItem = function(id, type){
+		Items.delete({type:'removeItem', id:id}, function(res){
+			if( res.result === 'ok' ){
+				Items.query({type:'getItems', name:'workers'}, function(res){
+					$scope.workers = res.data;
+				});
+			}
+
+		})
+	};
+
 
 }
 function ControllerService($scope, Text, Items){
 	var $textarea = $('#service .textarea');
-
-	$('#service input[type="checkbox"]').on('click', function(){
-		$(this).attr('checked', $(this).is(':checked'));
-	})
 
 	Text.query({type:'getText',name:'serviceText'}, function(res){ // get text
 		if( !res.data[0] ) return;
@@ -72,17 +81,24 @@ function ControllerService($scope, Text, Items){
 	$scope.saveItem = function(name){
 		var item = $('#' + name),
 			textarea = item.find('textarea').val(),
-			checkbox = item.find('input[type="checkbox"]').attr('checked') === 'checked' ?
+			checkbox = item.find('input[type="checkbox"]').is(':checked') ?
 				true : false;
-
+		console.log(checkbox)
 		Items.save({
 			type:'saveIteam', 
 			text:textarea, 
 			visible:checkbox, 
 			category:'service',
 			name : name}, function(respond){
-			if( respond.succsess === 'ok' )
-				window.location.reload();
+			if( respond.succsess === 'ok' ){
+				Items.query({type:'getItems', name:'service'}, function(res){
+					var result = res.data,
+						i = result.length - 1;
+					for (; i >= 0; i--) {
+						showContent(result[i]);
+					};
+				});
+			}
 		});
 	};
 	Items.query({type:'getItems', name:'service'}, function(res){
@@ -97,15 +113,29 @@ function ControllerService($scope, Text, Items){
 		var name = obj.name;
 		var form = $('#' + name);
 		form.children('textarea').text(obj.text);
-		form.children('input[type="checkbox"]').attr('checked', !obj.visible);
+		form.children('input[type="checkbox"]').attr('checked', obj.visible);
 	}
 
 }
-function ControllerContacts($scope, Items){
-	
+function ControllerContacts($scope, Text){
+	var $textarea = $('#contacts .textarea');
+	Text.query({type:'getText',name:'contactsText'}, function(res){ // get text
+		if( !res.data[0] ) return;
+		var text = res.data[0].contactsText;
+		$textarea.data('wysihtml5').editor.setValue(text); // update text editor
+	});
+
+	// save new text
+	$scope.save = function(){
+		var val = $textarea.val();
+		Text.save({type:'saveText',name:'contactsText', text: val}, function(res){ console.log(res) }); //save new text
+	};
+
 }
 function ControllerWork($scope, Items){
-	var $change = $('.change');
+	var $id_video = $('#id_video'),
+		$file = $('#work #file'),
+		$label_image = $('.label_image');
 
 	Items.query({type:'getItems', name:'work'}, function(res){
 		$scope.works = res.data;
@@ -121,11 +151,16 @@ function ControllerWork($scope, Items){
 		});
 	};
 
-	$scope.change = function(id, title, description){
-		$change.show();
-		$change.find('.title').val(title);
-		$change.find('.description').val(description);
-		$change.find('.oldTitle').val(title);
-	};
+	$('#work [value="youtube"]').on('click', function(){
+		$id_video.show();
+		$file.hide();
+		$label_image.hide();
+	});
+	$('#work [value="image"]').on('click', function(){
+		$id_video.hide();
+		$file.show();
+		$label_image.show();
+	});
 
+	$id_video .hide();
 }

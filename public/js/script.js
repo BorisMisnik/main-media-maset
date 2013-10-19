@@ -6,6 +6,7 @@
 		aboutDiv : $('#about .div'),
 		serviceDiv : $('#service .div'),
 		contactText : $('#contacts .text'),
+		home : $('.home'),
 		init : function(){
 			this.setSectionHeight();
 			this.links.on('click', $.proxy(app.scroll, app));
@@ -18,9 +19,14 @@
 			if( window.location.hash !== '' ){
 				$('.now').removeClass('now');
 				$(window.location.hash).addClass('now');
+				this.links.filter('[href="'+window.location.hash+'"]').addClass('active');
 				this.setContainerHeight();
+
+				if(  window.location.hash !== '#main' )
+					this.home.show();
 			}
 
+			
 		},
 		setSectionHeight : function(){
 			this.sections.each(function(){
@@ -68,10 +74,16 @@
 
 			// scroll container
 			this.setContainerHeight();
-			this.container.animate({'scrollTop' : h }, 1000, function(){ $('#scroll').getNiceScroll().resize();});
+			this.container.animate({'scrollTop' : h }, 1000, function(){ 
+				$('#scroll').getNiceScroll().resize();
+				if( $('.now').attr('id') === 'main' )
+					_this.home.hide();
+				else
+					_this.home.css('display','inline-block');
+			});
 		},
 		workSlider : function(){
-			$('#works').on('click', '.div', slideToWork);
+			$('#works').on('click', '.div', $.proxy(app.showWork,app));
 			$('.goback').on('click', slideToWorks);
 
 			function slideToWork () {
@@ -81,8 +93,48 @@
 			function slideToWorks (e) {
 				e.preventDefault();
 				$('.slider-works').css('margin-left','0');
+				setTimeout(function(){
+					$('.video-block').tubeplayer('destroy');
+				}, 600);
 			}
 
+		},
+		showWork : function(e){
+			e.preventDefault();
+			var id = $(e.target).data('id') || $(e.target).parents('.div').data('id'),
+				_this = this;
+			$.get('/admin/getItem', {id:id})
+				.done(function(result){
+					_this.renderWork(result);
+				});
+		},
+		renderWork : function(result){
+			$('.title-job').text(result.title);
+			$('.one-work .description').text(result.description);
+
+			if( result.typeContent === 'image' ){
+				$('.video-block').hide();
+				$('.img-block').show();
+				$('.img-block').children('img').attr('src', result.file);
+			} else{
+
+				$('.video-block').show();
+				$('.img-block').hide();
+				setTimeout(function(){
+					$('.video-block').tubeplayer({
+						width: 961, // the width of the player
+						height: 541, // the height of the player
+						allowFullScreen: "true", // true by default, allow user to go full screen
+						initialVideo: result.id_video, // the video that is loaded into the player
+						preferredQuality: "default" // preferred quality: default, small, medium, large, hd720
+					});
+				}, 600);
+			}
+
+			this.slideToWork();
+		},
+		slideToWork : function(){
+			$('.slider-works').css('margin-left','-1100px');
 		},
 		crateMap : function(){
 			var mapOptions = {
@@ -115,11 +167,11 @@
 		animateService : function(){
 			var _this = this;
 			var timer = 0;
-			this.serviceDiv.hide().removeClass('animated bounceIn');
+			this.serviceDiv.css('visibility', 'hidden').removeClass('animated bounceIn');
 			setTimeout(function(){
 				_this.serviceDiv.each(function(i){
 					setTimeout(function(){
-						_this.serviceDiv.eq(i).show().addClass('animated bounceIn');
+						_this.serviceDiv.eq(i).css('visibility', 'visible').addClass('animated bounceIn');
 					}, timer);
 					timer += 350;
 				});	
@@ -140,15 +192,28 @@
 
 			// crate video
   			videojs.options.flash.swf = "js/video-js.swf"
+  			// main page
   			videojs('main_player',{ "controls": true, "autoplay": false, "preload": "auto" }).ready(function(){
   				var myPlayer = this;
   				myPlayer.src([
-					{ type: "video/webm", src: "video/MainMediaMaster.webm" },
-					{ type: "video/ogg", src: "video/MainMediaMaster.ogv" },
-					{ type: "video/mp4", src: "video/MainMediaMaster.mp4" },
+  					{ type: "video/ogg", src: "/video/MainMediaMaster.ogv" },
+  					{ type: "video/mp4", src: "/video/MainMediaMaster.mp4" },
+					{ type: "video/webm", src: "/video/MainMediaMaster.webm" }
 				]);
-
 			});
+  			// page works
+  			videojs('works_player',{ "controls": true, "autoplay": false, "preload": "auto" }).ready(function(){
+  				var myPlayer = this;
+  				myPlayer.src([
+					{ type: "video/ogg", src: "video/iPhone5.ogv" },
+					{ type: "video/mp4", src: "video/iPhone5.mp4" }
+				]);
+				// myPlayer.play();
+				// setTimeout(function(){
+				// 	myPlayer.pause();
+				// }, 1300);
+			});
+
 		})()
 	};
 
