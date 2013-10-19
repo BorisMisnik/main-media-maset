@@ -208,7 +208,7 @@
 			// crate video
   			videojs.options.flash.swf = "js/video-js.swf"
   			// main page
-  			videojs('main_player',{ "controls": true, "autoplay": false, "preload": "auto" }).ready(function(){
+  			videojs('main_player',{ "controls": true, "autoplay": false }).ready(function(){
   				var myPlayer = this;
   				myPlayer.src([
   					{ type: "video/ogg", src: "/video/MainMediaMaster.ogv" },
