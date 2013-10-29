@@ -27,6 +27,14 @@ exports.getItems = function(req, res){
 		res.send({data : result});
 	});
 }
+// get  */getItem/*
+exports.getItem = function(req, res){
+	model.getItem(req.query.id, function(err, result){
+		if( err ) return res.send(404);
+		console.log( result );
+		res.send(result[0]);
+	});
+}
 // post */addClient/*
 exports.saveIteam = function(req, res){
 	if( req.files ){
@@ -96,26 +104,15 @@ exports.saveWork = function(req, res){
 			query.prewie = result[0];
 		if( result[1] !== '' )
 			query.file = result[1];
-		if( req.body.update !== 'true' ){ // save new work
-			model.saveIteam(query, function(err, result){
-				if( err ) return console.log( err );
-				res.redirect('/admin');
-			});
-		}
-		else {
-			// update work
-			var find = {};
-			find.type = 'work';
-			find.title = req.body.oldTitle;
-			model.updateItem(find, query, function(err, result){ 
-				if( err ) return console.log( err );
-				res.redirect('/admin');
-			});
-		}
-		
+		if( !query.file && req.body.id_video !== '')
+			query.id_video = req.body.id_video;
+
+		model.saveIteam(query, function(err, result){
+			if( err ) return console.log( err );
+			res.redirect('/admin');
+		});
 	})
 };
-// post update work/*
 
 // delete */removeItem/:id*
 exports.removeItem = function(req, res){

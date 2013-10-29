@@ -37,7 +37,7 @@ html(ng-app="admin")
 						li
 							a(href='#work') Work
 						li
-							a(href='#contactacs') Contactacs
+							a(href='#contacts') Contacts
 
 		.container
 			.row
@@ -45,7 +45,7 @@ html(ng-app="admin")
 					section#main(ng-controller="ControllerMain")
 						//- text editor
 						form(class="editor")
-							h2 Main Text
+							h2 Главная Описание раздела
 							textarea.textarea(placeholder='Enter text ...')
 							br
 							button(type="button", class="btn btn-success btn-large", ng-click="save()") Save
@@ -69,30 +69,30 @@ html(ng-app="admin")
 
 
 					section#about(ng-controller="ControllerAbout")
-						h2 About Text
+						h2 Описание раздела "Про нас"
 						form(class="editor")
 							textarea.textarea(placeholder='Enter text ...')
 							br
 							button(type="button", class="btn btn-success btn-large", ng-click="save()") Save
-						h4 We
+						h4 Список сотрудников
 						.row
 							.span3(ng-repeat="worker in workers", class="client")
 								img(ng-src="{{worker.img}}" ,alt="")
 								button(
 								  ng-click="removeItem(worker._id, worker.type)", 
 								  class="btn btn-danger") Удалить
-						h4 Add
+						h4 Добавить сотрудника
 						form(method="post", 
 							action="/admin/saveIteam", 
 							enctype="multipart/form-data", 
 							class="span6 well", style="margin:0 0 20px;"
 							)
 							.control-group
-								label.control-label(for='name') Name
+								label.control-label(for='name') Имя
 								.controls
 									input#name.form-control(type='text', placeholder='Name', name="name", required, class="input-xlarge")
 							.control-group
-								label.control-label(for='job') Job
+								label.control-label(for='job') Профессия
 								.controls
 									input#job.form-control(type='text', placeholder='Job', name="job", required, class="input-xlarge")
 							.control-group	
@@ -103,7 +103,7 @@ html(ng-app="admin")
 							button.btn.btn-primary(type='submit', style="margin:10px 0 0;") Go!
 
 					section#service(ng-controller="ControllerService")
-						h2 Service Text
+						h2 Описание раздела "Cервисы"
 						form(class="editor")
 							textarea.textarea(placeholder='Enter text ...')
 							br
@@ -128,7 +128,7 @@ html(ng-app="admin")
 									.controls#video
 										//- video
 										textarea.form-control(
-											type='text', 
+											name = 'video'
 											placeholder='Video', 
 											value="{{$scope.video}}")
 										br
@@ -178,62 +178,21 @@ html(ng-app="admin")
 					section#work(ng-controller="ControllerWork")
 						.row
 							.span12
-						.div.change.span12.well
-							h3 Change work
-								form(method="post", action="/admin/saveWork", 
-									enctype="multipart/form-data")
-										.control-group
-											label.control-label(for='title') Title
-										.controls
-											input.title.form-control(type='text',
-													placeholder='Title', 
-													name="title"
-													maxlength="38",
-													class="input-xlarge")
-										.control-group
-											label.control-label() Description
-										.controls
-											textarea.description.form-control(
-													name="lognDescription")
-										.control-group
-											label.control-label(for='previewimage') Preview image
-										.controls
-											input#previewimage.form-control(type='file',
-													name="previewimage",
-													accept="image/*")
-										.control-group
-											label.control-label(for='') Type
-										.controls
-											input#previmage.form-control(type='radio',name="typeContent", value="image") 
-											|Image
-											input#previmage.form-control(type='radio',name="typeContent", value="video") 
-											|Video
-										.control-group
-											label.control-label(for='file') File
-										.controls
-											input#file.form-control(type='file',
-													name="file")
-										input(type="hidden", name="update", value="true")
-										input.oldTitle(type="hidden", name="oldTitle", value="")
-										button.btn.btn-primary(type='submit', style="margin:10px 0 0;") Go!
 						table(class="table table-striped")
 							tr
 								th Title
 								th Изменить
-								th Удалить
 							tr(ng-repeat="work in works")
 								td {{work.title}}
 								td 
-									button.btn.btn-warning(ng-click="change(work._id, work.title, work.description)") Изменить
-								td 
 									button.btn.btn-danger(ng-click="remove(work._id)") Удалить
-						h3 Add work
+						h3 Добавить роботу
 						.row
 							.span12.well
 								form(method="post", action="/admin/saveWork", 
 								enctype="multipart/form-data")
 									.control-group
-										label.control-label(for='title') Title
+										label.control-label(for='title') Заголовок
 									.controls
 										input#title.form-control(type='text',
 												placeholder='Title', 
@@ -242,7 +201,7 @@ html(ng-app="admin")
 												maxlength="38",
 												class="input-xlarge")
 									.control-group
-										label.control-label(for='lognDescription') Description
+										label.control-label(for='lognDescription') Описание
 									.controls
 										textarea#lognDescription.form-control(
 												name="lognDescription",
@@ -257,19 +216,25 @@ html(ng-app="admin")
 									.control-group
 										label.control-label(for='') Type
 									.controls
-										input#previmage.form-control(type='radio',name="typeContent", value="image") 
+										input.typeContent.form-control(type='radio',name="typeContent", value="image") 
 										|Image
-										input#previmage.form-control(type='radio',name="typeContent", value="video") 
-										|Video
+										input.typeContent.form-control(type='radio',name="typeContent", value="youtube") 
+										|Youtube 
 									.control-group
-										label.control-label(for='file') File
+										label.control-label.label_image(for='file') Файл изображения
 									.controls
 										input#file.form-control(type='file',
 												name="file")
+									.controls
+										input#id_video.form-control(type='text',
+												name="id_video", placeholder="Только ID видео")
 									input(type="hidden", name="category", value="work")
 									button.btn.btn-primary(type='submit', style="margin:10px 0 0;") Go!
 
 
-					section#contactacs(ng-controller="ControllerContacts")
+					section#contacts(ng-controller="ControllerContacts")
 						form(class="editor")
+							h2 Контакты
 							textarea.textarea(placeholder='Enter text ...')
+							br
+							button(type="button", class="btn btn-success btn-large", ng-click="save()") Save
