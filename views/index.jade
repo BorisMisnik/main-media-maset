@@ -2,6 +2,7 @@
 html(ng-app="app")
 	head(lang='ru')
 		title Main Media Master
+
 		meta(http-equiv='content-type', content='text/html; charset=UTF-8')
 		meta(name='description', content='')
 		meta(name='keywords', content='')
@@ -10,12 +11,14 @@ html(ng-app="app")
 		// if lt IE 9
 			script(type="text/javascript", src="//html5shiv.googlecode.com/svn/trunk/html5.js")
 
+		link(rel="shortcut icon", href="img/favicon.ico", type="image/x-icon")
+
 		link(rel="stylesheet", href="css/animate.min.css", type="text/css")
 		link(rel="stylesheet", href="css/style.css", type="text/css")
 		link(rel="stylesheet", href="css/liquidcarousel.css", type="text/css")
 		link(rel="stylesheet", href="css/video-js.css", type="text/css")
 
-		//- script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js")
+		script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js")
 		script(src="js/angular.min.js")
 		script(src="js/app.js")
 		script(src="js/controls.js")
@@ -25,6 +28,8 @@ html(ng-app="app")
 			.bg
 			a#logo(href="#main").sprite.link main media master
 			nav
+				a(href="#main").link.home
+					img(src="img/home.png", alt=" ")
 				a(href="#about").link 
 					|About
 					span
@@ -45,9 +50,9 @@ html(ng-app="app")
 		footer
 			p.copy &copy;2013, Main Media Master
 			.links
-				a(href="/", target="_blank").sprite
-				a(href="/", target="_blank").sprite
-				a(href="/", target="_blank").sprite
+				each link in links 
+					a(href="#{link.link}", target="_blank")
+						img(src="#{link.img}", alt="#{link.link}")
 		//- content
 		#scroll
 			#container
@@ -62,28 +67,29 @@ html(ng-app="app")
 							 )
 
 						h2.title about
-						p.description.text #{mainText}
+						p.description.text !{mainText}
 						a.read-more.link(href="#about") Read more
 
-						//- carousel
-						.plushka.sprite Clients
-						.carousel
-							#liquid
-								a.previous
-									span.sprite
-								a.next
-									span.sprite
-								.wrapper
-										ul
-											each client in clients
-												li
-													a(href='#')
-														img(src="#{client.img}", alt=' ')
+						if clients.length
+							//- carousel
+							.plushka.sprite Clients
+							.carousel
+								#liquid
+									a.previous
+										span.sprite
+									a.next
+										span.sprite
+									.wrapper
+											ul
+												each client in clients
+													li
+														a(href='#')
+															img(src="#{client.img}", alt=' ')
 				//- about
 				section#about
 					.wrapper-section
 						h2.title about
-						p.description.text #{aboutText}
+						p.description.text !{aboutText}
 						//- grid
 						.grid
 							each worker in workers
@@ -91,22 +97,22 @@ html(ng-app="app")
 									.img-wrapper
 										img(src="#{worker.img}", alt=" ")
 									.details
-										p.name #{worker.name}
-										p.job #{worker.job}
+										p.name !{worker.name}
+										p.job !{worker.job}
 				//- service
 				section#service
 					.wrapper-section
 						.title-bg
 							h2.title Service
-							p.description.text #{serviceText}
+							p.description.text !{serviceText}
 						.grid
 							each service in services
 								if service
 									.div
-										.sprite(class="#{service.className}")
+										img(src="#{service.img}", alt="#{service.title}")
 										.details
-											h3.title #{service.name}
-											p.text #{service.text}
+											h3.title #{service.title}
+											p.text #{service.description}
 				//- works
 				section#works
 					.wrapper-section
@@ -115,7 +121,7 @@ html(ng-app="app")
 								video(class="video-js vjs-default-skin"
 									controls 
 									preload="auto" 
-									width="1100", height="400"
+									width="700", height="400"
 									id="works_player"
 								)
 								h2.title works
@@ -146,11 +152,11 @@ html(ng-app="app")
 						h2.title contacs
 						p.description.text !{contactsText}
 
-		//- script(src="//vjs.zencdn.net/4.1/video.js")
-		script(src="js/jquery.min.js")
-		//- script(src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
-		//- script(src="//cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.5.1/jquery.nicescroll.min.js")
-		script(src="js/jquery.nicescroll.min.js")
-		//- script(src="//maps.googleapis.com/maps/api/js?key=AIzaSyBr-kbGyzoFHxFLtHKcB2RvYPdSr0ENgvk&sensor=true")
+		//-
+		script(src="//vjs.zencdn.net/4.1/video.js")
+		script(src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js")
+		script(src="//cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.5.1/jquery.nicescroll.min.js")
+		script(src="//maps.googleapis.com/maps/api/js?key=AIzaSyBr-kbGyzoFHxFLtHKcB2RvYPdSr0ENgvk&sensor=true")
+		script(src="http://cdnjs.cloudflare.com/ajax/libs/jquery-tubeplayer/1.1.6/jquery.tubeplayer.min.js")
 		script(src="js/jquery.liquidcarousel.js")
 		script(src="js/script.js")

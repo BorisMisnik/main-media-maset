@@ -1,5 +1,5 @@
 !!!	
-html(ng-app="admin")
+html(ng-app="admin", ng-controller="AppCtrl")
 	head
 		meta(charset="utf-8")
 
@@ -29,212 +29,16 @@ html(ng-app="admin")
 					a.brand(href='#') Main Media Master
 					ul.nav
 						li.active
-							a(href='#main') Main
+							a(href='#/main') Main
 						li
-							a(href='#about') About
+							a(href='#/about') About
 						li
-							a(href='#service') Service
+							a(href='#/service') Service
 						li
-							a(href='#work') Work
+							a(href='#/work') Work
 						li
-							a(href='#contacts') Contacts
+							a(href='#/contacts') Contacts
 
 		.container
 			.row
-				.span-12
-					section#main(ng-controller="ControllerMain")
-						//- text editor
-						form(class="editor")
-							h2 Главная Описание раздела
-							textarea.textarea(placeholder='Enter text ...')
-							br
-							button(type="button", class="btn btn-success btn-large", ng-click="save()") Save
-						//- list clients
-						h4 Список клиентов
-						.row
-							.span2(ng-repeat="client in clients", class="client")
-								img(ng-src="{{client.img}}" ,alt="")
-								button(
-								  ng-click="removeItem(client._id, client.type)", 
-								  class="btn btn-danger") Удалить
-						h4 Добавить клиента	
-						form(method="post", 
-							action="/admin/saveIteam", 
-							enctype="multipart/form-data", 
-							class="span6 well", style="margin:0 0 20px;"
-							)
-							input(type='file', style="display:block;", accept="image/*", name="image")
-							button.btn.btn-primary(type='submit', style="margin:10px 0 0;") Go!
-
-
-
-					section#about(ng-controller="ControllerAbout")
-						h2 Описание раздела "Про нас"
-						form(class="editor")
-							textarea.textarea(placeholder='Enter text ...')
-							br
-							button(type="button", class="btn btn-success btn-large", ng-click="save()") Save
-						h4 Список сотрудников
-						.row
-							.span3(ng-repeat="worker in workers", class="client")
-								img(ng-src="{{worker.img}}" ,alt="")
-								button(
-								  ng-click="removeItem(worker._id, worker.type)", 
-								  class="btn btn-danger") Удалить
-						h4 Добавить сотрудника
-						form(method="post", 
-							action="/admin/saveIteam", 
-							enctype="multipart/form-data", 
-							class="span6 well", style="margin:0 0 20px;"
-							)
-							.control-group
-								label.control-label(for='name') Имя
-								.controls
-									input#name.form-control(type='text', placeholder='Name', name="name", required, class="input-xlarge")
-							.control-group
-								label.control-label(for='job') Профессия
-								.controls
-									input#job.form-control(type='text', placeholder='Job', name="job", required, class="input-xlarge")
-							.control-group	
-								label.control-label() Фото
-								.controls
-									input(type='file', style="display:block;", accept="image/*", name="image")
-
-							button.btn.btn-primary(type='submit', style="margin:10px 0 0;") Go!
-
-					section#service(ng-controller="ControllerService")
-						h2 Описание раздела "Cервисы"
-						form(class="editor")
-							textarea.textarea(placeholder='Enter text ...')
-							br
-							button(type="button", class="btn btn-success btn-large", ng-click="save()") Save
-						form(style="margin:0 0 20px;")
-							.control-group.row
-								.span5.well
-									h4 Branding
-									.controls#branding
-										//- branding
-										textarea.form-control(
-											placeholder='Branding', 
-											name="branding"
-											value="{{$scope.branding}}")
-										br
-										input(type="checkbox", name="branding_visible") 
-										|Hide
-										br
-										button(type="button", class="btn btn-success btn-large", ng-click="saveItem('branding')") Save
-								.span5.well
-									h4 Video
-									.controls#video
-										//- video
-										textarea.form-control(
-											name = 'video'
-											placeholder='Video', 
-											value="{{$scope.video}}")
-										br
-										input(type="checkbox") 
-										|Hide
-										br
-										button(type="button", class="btn btn-success btn-large", ng-click="saveItem('video')") Save
-								.span5.well		
-									h4 3D
-									.controls#D3
-										//- 3d
-										textarea.form-control(
-											placeholder='3D', 
-											name="D3"
-											value="{{$scope.D3}}")
-										br
-										input(type="checkbox") 
-										|Hide
-										br
-										button(type="button", class="btn btn-success btn-large", ng-click="saveItem('D3')") Save
-								.span5.well
-									h4 Radio
-									.controls#radio
-										//- radio
-										textarea.form-control(
-											placeholder='radio', 
-											name="radio"
-											value="{{$scope.radio}}")
-										br
-										input(type="checkbox") 
-										|Hide
-										br
-										button(type="button", class="btn btn-success btn-large", ng-click="saveItem('radio')") Save
-								.span5.well
-									h4 Web
-									.controls#web
-										//- web
-										textarea.form-control(
-											placeholder='web', 
-											name="web"
-											value="{{$scope.web}}")
-										br
-										input(type="checkbox") 
-										|Hide
-										br
-										button(type="button", class="btn btn-success btn-large", ng-click="saveItem('web')") Save
-					section#work(ng-controller="ControllerWork")
-						.row
-							.span12
-						table(class="table table-striped")
-							tr
-								th Title
-								th Изменить
-							tr(ng-repeat="work in works")
-								td {{work.title}}
-								td 
-									button.btn.btn-danger(ng-click="remove(work._id)") Удалить
-						h3 Добавить роботу
-						.row
-							.span12.well
-								form(method="post", action="/admin/saveWork", 
-								enctype="multipart/form-data")
-									.control-group
-										label.control-label(for='title') Заголовок
-									.controls
-										input#title.form-control(type='text',
-												placeholder='Title', 
-												name="title", 
-												required,
-												maxlength="38",
-												class="input-xlarge")
-									.control-group
-										label.control-label(for='lognDescription') Описание
-									.controls
-										textarea#lognDescription.form-control(
-												name="lognDescription",
-												required)
-									.control-group
-										label.control-label(for='previewimage') Preview image
-									.controls
-										input#previewimage.form-control(type='file',
-												name="previewimage",
-												accept="image/*",
-												required)
-									.control-group
-										label.control-label(for='') Type
-									.controls
-										input.typeContent.form-control(type='radio',name="typeContent", value="image") 
-										|Image
-										input.typeContent.form-control(type='radio',name="typeContent", value="youtube") 
-										|Youtube 
-									.control-group
-										label.control-label.label_image(for='file') Файл изображения
-									.controls
-										input#file.form-control(type='file',
-												name="file")
-									.controls
-										input#id_video.form-control(type='text',
-												name="id_video", placeholder="Только ID видео")
-									input(type="hidden", name="category", value="work")
-									button.btn.btn-primary(type='submit', style="margin:10px 0 0;") Go!
-
-
-					section#contacts(ng-controller="ControllerContacts")
-						form(class="editor")
-							h2 Контакты
-							textarea.textarea(placeholder='Enter text ...')
-							br
-							button(type="button", class="btn btn-success btn-large", ng-click="save()") Save
+				.span-12(ng-view)

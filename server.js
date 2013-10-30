@@ -8,7 +8,7 @@ var index = require('./controllers/index')
   , adminRouters = require('./controllers/adminRouters.js')
 
 // configure Express
-app.set('port', process.env.PORT || 5000); 
+app.set('port', process.env.PORT || 80); 
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 app.use(express.bodyParser());
@@ -33,6 +33,7 @@ app.get('/admin/login', admin.login);
 app.get('/admin/getText', adminRouters.getText); // get text
 app.get('/admin/getItems', adminRouters.getItems); // get list items
 app.get('/admin/getItem', adminRouters.getItem); // get list items
+app.post('/admin/updateItem', adminRouters.updateItem); // get list items
 
 app.post('/admin/saveText', adminRouters.saveText); // save new text
 app.post('/admin/saveIteam', adminRouters.saveIteam); // save item

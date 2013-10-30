@@ -1,4 +1,15 @@
-
+function AppCtrl($scope){
+	$scope.$on('$routeChangeSuccess', function(){
+		setTimeout(function(){
+			$('.textarea').wysihtml5({ // init text editor
+				stylesheets: false,
+				'font-styles': false,
+				lists : false,
+				emphasis : false
+			});
+		}, 100);
+	});
+}
 function ControllerMain($scope, Text, Items){
 	var $textarea = $('#main .textarea');
 
@@ -6,7 +17,8 @@ function ControllerMain($scope, Text, Items){
 		
 		if( !res.data[0] ) return;
 		var text = res.data[0].mainText;
-		$textarea.data('wysihtml5').editor.setValue(text); // update text editor
+		 // update text editor
+		 updateEditor(text);
 	});
 
 	Items.query({type:'getItems', name:'clients'}, function(res){
@@ -37,7 +49,8 @@ function ControllerAbout($scope, Text, Items){
 	Text.query({type:'getText',name:'aboutText'}, function(res){ // get text
 		if( !res.data[0] ) return;
 		var text = res.data[0].aboutText;
-		$textarea.data('wysihtml5').editor.setValue(text); // update text editor
+		// update text editor
+		 updateEditor(text);
 	});
 
 	// save new text
@@ -62,6 +75,17 @@ function ControllerAbout($scope, Text, Items){
 		})
 	};
 
+	$scope.changeItem = function(worker){
+		$('#aboutModal').modal('show');
+		$scope.modal = {
+			name : worker.name,
+			job : worker.job,
+			index : worker.index,
+			img : worker.img,
+			id : worker._id
+		};
+		console.log($scope.modal)  
+	};
 
 }
 function ControllerService($scope, Text, Items){
@@ -70,7 +94,8 @@ function ControllerService($scope, Text, Items){
 	Text.query({type:'getText',name:'serviceText'}, function(res){ // get text
 		if( !res.data[0] ) return;
 		var text = res.data[0].serviceText;
-		$textarea.data('wysihtml5').editor.setValue(text); // update text editor
+		// update text editor
+		 updateEditor(text);
 	});
 
 	// save new text
@@ -78,51 +103,45 @@ function ControllerService($scope, Text, Items){
 		var val = $textarea.val();
 		Text.save({type:'saveText',name:'serviceText', text: val}, function(res){}); //save new text
 	};
-	$scope.saveItem = function(name){
-		var item = $('#' + name),
-			textarea = item.find('textarea').val(),
-			checkbox = item.find('input[type="checkbox"]').is(':checked') ?
-				true : false;
-		console.log(checkbox)
-		Items.save({
-			type:'saveIteam', 
-			text:textarea, 
-			visible:checkbox, 
-			category:'service',
-			name : name}, function(respond){
-			if( respond.succsess === 'ok' ){
+
+	// remove service
+	$scope.remove = function(id){
+		Items.delete({id : id, type:'removeItem'}, function(response){
+			if( response.result === 'ok' ){
 				Items.query({type:'getItems', name:'service'}, function(res){
-					var result = res.data,
-						i = result.length - 1;
-					for (; i >= 0; i--) {
-						showContent(result[i]);
-					};
+					$scope.services = res.data;
 				});
 			}
 		});
 	};
-	Items.query({type:'getItems', name:'service'}, function(res){
-		var result = res.data,
-			i = result.length - 1;
-		for (; i >= 0; i--) {
-			showContent(result[i]);
-		};
-	});
 
-	function showContent(obj){
-		var name = obj.name;
-		var form = $('#' + name);
-		form.children('textarea').text(obj.text);
-		form.children('input[type="checkbox"]').attr('checked', obj.visible);
+	// change service
+	$scope.change = function(service){
+		$('#serviceModal').modal('show');
+		$scope.modal = {
+			title : service.title,
+			index : service.index,
+			description : service.description,
+			id : service._id
+		}
 	}
 
+	Items.query({type:'getItems', name:'service'}, function(res){
+		$scope.services = res.data;
+	});
+
 }
-function ControllerContacts($scope, Text){
+
+function ControllerContacts($scope, Text, Items){
 	var $textarea = $('#contacts .textarea');
 	Text.query({type:'getText',name:'contactsText'}, function(res){ // get text
 		if( !res.data[0] ) return;
 		var text = res.data[0].contactsText;
-		$textarea.data('wysihtml5').editor.setValue(text); // update text editor
+		setTimeout(function(){
+			// update text editor
+		 	updateEditor(text);
+		}, 200)
+		// update text editor
 	});
 
 	// save new text
@@ -130,6 +149,31 @@ function ControllerContacts($scope, Text){
 		var val = $textarea.val();
 		Text.save({type:'saveText',name:'contactsText', text: val}, function(res){ console.log(res) }); //save new text
 	};
+
+	$scope.remove = function(id){
+		Items.delete({id : id, type:'removeItem'}, function(response){
+			if( response.result === 'ok' ){
+				Items.query({type:'getItems', name:'socialButton'}, function(res){
+					$scope.contacts = res.data;
+				});
+			}
+		});
+	};
+	$scope.change = function(contact){
+		$('#contactModal').modal('show');
+		$scope.modal = {
+			index : contact.index,
+			link : contact.link,
+			img : contact.img,
+			id : contact._id
+		}
+		console.log($scope.modal)
+	}
+
+
+	Items.query({type:'getItems', name:'socialButton'}, function(res){
+		$scope.contacts = res.data;
+	});
 
 }
 function ControllerWork($scope, Items){
@@ -151,6 +195,23 @@ function ControllerWork($scope, Items){
 		});
 	};
 
+	$scope.showPhoto = function(img){
+		$scope.photo = img;
+		$('#photoModal').modal('show');
+	};
+
+	$scope.change = function(work){
+		$('#workModal').modal('show');
+
+		$scope.modal = {
+			title : work.title,
+			index : work.index,
+			description : work.description,
+			video : work.id_video,
+			id : work._id
+		}
+	}
+
 	$('#work [value="youtube"]').on('click', function(){
 		$id_video.show();
 		$file.hide();
@@ -163,4 +224,12 @@ function ControllerWork($scope, Items){
 	});
 
 	$id_video .hide();
+}
+
+
+function updateEditor(value){
+	setTimeout(function(){
+		if( $('.textarea').data('wysihtml5') )
+			$('.textarea').data('wysihtml5').editor.setValue(value);
+	}, 200);
 }

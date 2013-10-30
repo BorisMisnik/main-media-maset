@@ -6,10 +6,8 @@ exports.getText = function(name, callback){
 	collection = collection || require('./index').collection;
 	var query = {};
 	query[name] = { $exists: true };
-	console.log(query)
 	collection.find(query).toArray(function(err, items) {
 		if( err ) return console.warn( err );
-		console.log(items)
 		callback(err, items);
 	});
 };
@@ -24,7 +22,6 @@ exports.saveText = function(name, text, callback){
 	collection.update(
 		 query, set, {},function(err, result) { // result
 			if( err )callback(err);
-			console.log(result)
 	});
 };
 
@@ -32,7 +29,7 @@ exports.getItems = function(name, callback){
 	var query = {};
 	query.type = name;
 	collection = collection || require('./index').collection;
-	collection.find(query).toArray(function(err, items) {
+	collection.find(query).sort({index : 1}).toArray(function(err, items) {
 		if( err ) return console.warn( err );
 		callback(err, items);
 	});
@@ -42,7 +39,6 @@ exports.getItem = function(id, callback){
 	collection = collection || require('./index').collection;
 	collection.find(query).toArray(function(err, items) {
 		if( err ) return console.warn( err );
-		console.log(items)
 		callback(err, items);
 	});
 }
@@ -59,10 +55,9 @@ exports.updateItem= function(query,set, callback){
 	if( !query || !set ) return callback('query is bad', null);
 
 	collection = collection || require('./index').collection;
-	console.log('set', set)
 	collection.update(query, {$set:set},{},function(err, result){
 		if( err ) return callback( err );
-		if( result ) callback(null)
+		if( result ) callback(null);
 	});
 };
 exports.saveImage = function(name, path, callback){

@@ -52,3 +52,6 @@ input[type="radio"]:first-child{
 .change{
 	display: none;
 }
+#photoModal{
+	text-align: center;
+}

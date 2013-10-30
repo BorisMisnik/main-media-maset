@@ -72,6 +72,13 @@ exports.index = function(req, res){
 				page.contactsText = result[0].contactsText;
 				callback(null);
 			});
+		},
+		function (callback){ // get links
+			model.getItems('socialButton', function(err, result){
+				if( err ) return callback(err, null);
+				page.links = result;
+				callback(null);
+			});
 		}
 	], function(err, callback){
 		console.log(page)
