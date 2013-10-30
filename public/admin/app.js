@@ -9,23 +9,23 @@ angular
 	 	function($routeProvider) {
 			$routeProvider.
 				when('/main', {
-					templateUrl: 'admin/partials/main.html',
+					templateUrl: '/partials/main.html',
 					controller: 'ControllerMain'
 			 	}).
 			 	when('/about', {
-					templateUrl: 'admin/partials/about.html',
+					templateUrl: '/partials/about.html',
 					controller: 'ControllerAbout'
 			 	}).
 			 	when('/service', {
-					templateUrl: 'admin/partials/service.html',
+					templateUrl: '/partials/service.html',
 					controller: 'ControllerService'
 			 	}).
 			 	when('/work', {
-					templateUrl: 'admin/partials/work.html',
+					templateUrl: '/partials/work.html',
 					controller: 'ControllerWork'
 			 	}).
 			 	when('/contacts', {
-					templateUrl: 'admin/partials/contacts.html',
+					templateUrl: '/partials/contacts.html',
 					controller: 'ControllerContacts'
 			 	}).
 				otherwise({
