@@ -13,7 +13,7 @@ angular
 					controller: 'ControllerMain'
 			 	}).
 			 	when('/about', {
-					templateUrl: '/partials/about.html',
+					templateUrl: 'admin/partials/about.html',
 					controller: 'ControllerAbout'
 			 	}).
 			 	when('/service', {
