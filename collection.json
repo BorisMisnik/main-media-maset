@@ -1,14 +1,34 @@
 [	
 	{
-		"mainText" : "test"
+		"mainText" : "test",
+		"language" : "ru"
 	},
 	{
-		"aboutText" : "text"
+		"aboutText" : "text",
+		"language" : "ru"
 	},
 	{
-		"serviceText" : "text"
+		"serviceText" : "text",
+		"language" : "ru"
 	},
 	{
-		"contactsText" : "text"
+		"contactsText" : "text",
+		"language" : "ru"
+	},
+	{
+		"mainText" : "test",
+		"language" : "en"
+	},
+	{
+		"aboutText" : "text",
+		"language" : "en"
+	},
+	{
+		"serviceText" : "text",
+		"language" : "en"
+	},
+	{
+		"contactsText" : "text",
+		"language" : "en"
 	}
 ]

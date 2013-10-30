@@ -1,10 +1,16 @@
 section#about()
-						h2 Описание раздела "Про нас"
+	h2 Описание раздела "Про нас"
 						form(class="editor")
+							select(ng-model="languageText")
+								option(value="ru") Русский
+								option(value="en") English
 							textarea.textarea(placeholder='Enter text ...')
 							br
 							button(type="button", class="btn btn-success btn-large", ng-click="save()") Save
 						h4 Список сотрудников
+						select(ng-model="language")
+							option(value="ru", selected) Русский
+							option(value="en") English
 						table(class="table table-striped")
 							tr
 								th Имя
@@ -13,7 +19,7 @@ section#about()
 								th Фото
 								th 
 								th 
-							tr(ng-repeat="worker in workers")
+							tr(ng-repeat="worker in workers | filter:language")
 								td {{worker.name}}
 								td {{worker.job}}
 								td {{worker.index}}
@@ -41,6 +47,12 @@ section#about()
 								label.control-label(for='indexWorker') Индекс
 								.controls
 									input#indexWorker.form-control(type='text', placeholder='Index', name="index", required, class="input-xlarge")
+							.control-group
+								label.control-label(for='') Язык
+								.controls
+									select(name="language", required)
+										option(value="ru") Русский
+										option(value="en") English
 							.control-group	
 								label.control-label() Фото
 								.controls
@@ -82,6 +94,12 @@ section#about()
 												name="index"
 												value = "{{modal.index}}"
 												class="input-xlarge")
+									.control-group
+										label.control-label(for='') Язык
+										.controls
+											select(name="language")
+												option(value="ru") Русский
+												option(value="en") English
 									.control-group	
 										label.control-label() Фото
 											.controls

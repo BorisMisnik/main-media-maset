@@ -96,7 +96,8 @@ header{
 		z-index: 1;
 		vertical-align: middle;
 	}
-	nav a{
+	nav > a,
+	nav > div{
 		position: relative; 
 		display: inline-block;
 		min-width: 84px;
@@ -111,6 +112,7 @@ header{
 		line-height: 60px;
 		-webkit-transition:color,border 500ms ease-in-out;
 		transition:color,border 500ms ease-in-out;	
+		background: none;
 		span{
 			position: absolute;
 			top:0;
@@ -154,6 +156,21 @@ header{
 		img{
 			position: relative;
 			top: 7px;
+		}
+	}
+	nav div a{
+		font-style: normal;
+		font-size: 15px;
+		cursor:pointer;
+		position: relative;
+		top: 0px;
+		left: 22px;
+		text-transform: capitalize;
+		color:#4aaf57;
+		transition:color 600ms ease-in-out;
+		&:hover{
+			color:#464646;
+			text-decoration: none;
 		}
 	}
 }
@@ -245,6 +262,10 @@ footer{
 	color:#4aaf57;
 	font-size: 14px;
 	font-family: 'MyriadProIt';
+	transition:color 600ms ease-in-out;
+	&:hover{
+		color:#464646;
+	}
 }
 .carousel{
 	margin: auto;
@@ -412,7 +433,7 @@ footer{
 .title-bg{
 	width:100%;
 	height:227px;
-	background:url("../img/bg-title.png") no-repeat;
+	background:url("../img/bg-title.png") no-repeat center #4aaf57;
 	.title{
 		border-color:#fff;
 		color:#fff;
@@ -592,7 +613,8 @@ footer{
 	width:100%;
 	height: 228px;
 }
-#contacts .wrapper-section{
+#contacts .wrapper-section,
+#service .wrapper-section{
 	width:100% !important;
 }
 body .vjs-default-skin .vjs-big-play-button{

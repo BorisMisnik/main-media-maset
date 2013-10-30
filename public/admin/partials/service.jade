@@ -1,10 +1,16 @@
 section#service
 						h2 Описание раздела "Cервисы"
+						select(ng-model="languageText")
+									option(value="ru") Русский
+									option(value="en") English
 						form(class="editor")
 							textarea.textarea(placeholder='Enter text ...')
 							br
 							button(type="button", class="btn btn-success btn-large", ng-click="save()") Save
 						h4 Список сервисов
+						select(ng-model="language")
+							option(value="ru", selected) Русский
+							option(value="en") English
 						table(class="table table-striped")
 							tr
 								th Заголовок
@@ -13,7 +19,7 @@ section#service
 								th Картинка
 								th 
 								th 
-							tr(ng-repeat="service in services")
+							tr(ng-repeat="service in services | filter:language")
 								td {{service.title}}
 								td {{service.index}}
 								td {{service.description}}
@@ -37,7 +43,12 @@ section#service
 								label.control-label(for='indexWorker') Индекс
 								.controls
 									input#indexWorker.form-control(type='text', placeholder='Index', name="index", , class="input-xlarge", required)
-
+							.control-group
+								label.control-label(for='') Язык
+								.controls
+									select(name="language", required)
+										option(value="ru") Русский
+										option(value="en") English			
 							.control-group
 								label.control-label(for='description') Описание
 								.controls
@@ -68,6 +79,12 @@ section#service
 											label.control-label(for='') Индекс
 											.controls
 												input.form-control(type='text', placeholder='Index', name="index", , class="input-xlarge", value="{{modal.index}}")
+										.control-group
+											label.control-label(for='') Язык
+											.controls
+												select(name="language", required)
+													option(value="ru") Русский
+													option(value="en") English	
 										.control-group
 											label.control-label(for='') Описание
 											.controls

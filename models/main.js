@@ -2,22 +2,16 @@ var collection = require('./index').collection,
 	ObjectID = require('mongodb').ObjectID,
 	fs = require('fs');
 
-exports.getText = function(name, callback){
+exports.getText = function(query, callback){
 	collection = collection || require('./index').collection;
-	var query = {};
-	query[name] = { $exists: true };
+	console.log(query)
 	collection.find(query).toArray(function(err, items) {
 		if( err ) return console.warn( err );
 		callback(err, items);
 	});
 };
 
-exports.saveText = function(name, text, callback){
-	var query = {}, obj = {}, set = {};
-	query[name] = { $exists: true };
-	obj[name] = text;
-	set.$set = obj;
-
+exports.saveText = function(query, set, callback){
 	collection = collection || require('./index').collection;
 	collection.update(
 		 query, set, {},function(err, result) { // result
@@ -25,9 +19,12 @@ exports.saveText = function(name, text, callback){
 	});
 };
 
-exports.getItems = function(name, callback){
+exports.getItems = function(name, callback, lng){
 	var query = {};
 	query.type = name;
+	if( lng )
+		query.language = lng
+	console.log(query)
 	collection = collection || require('./index').collection;
 	collection.find(query).sort({index : 1}).toArray(function(err, items) {
 		if( err ) return console.warn( err );

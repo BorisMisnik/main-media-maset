@@ -1,8 +1,8 @@
 angular.module('adminServices', ['ngResource']).
 	factory('Text', function($resource){
 		return $resource('admin/:type', {type : '@type'}, {
-			query: {method:'GET', params:{name:'@name'}}, //get text
-			save : {method:'POST', params:{name:'@name', text:'@text'}} // save text
+			query: {method:'GET'}, //get text
+			save : {method:'POST'} // save text
 	  	});
 	}).
 	factory('Items', function($resource){

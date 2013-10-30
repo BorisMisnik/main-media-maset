@@ -2,6 +2,9 @@ section#main()
 						//- text editor
 						form(class="editor")
 							h2 Главная Описание раздела
+							select(ng-model="languageText")
+									option(value="ru") Русский
+									option(value="en") English
 							textarea.textarea(placeholder='Enter text ...')
 							br
 							button(type="button", class="btn btn-success btn-large", ng-click="save()") Save

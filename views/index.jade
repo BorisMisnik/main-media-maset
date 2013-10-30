@@ -31,21 +31,24 @@ html(ng-app="app")
 				a(href="#main").link.home
 					img(src="img/home.png", alt=" ")
 				a(href="#about").link 
-					|About
+					|#{titles[0]}
 					span
 				a(href="#service").link 
-					|Service
+					|#{titles[1]}
 					span
 				a(href="#works").link 
-					|Works
+					|#{titles[2]}
 					span
 				a(href="#contacts").link 
-					|Contacs
+					|#{titles[3]}
 					span
-				a(href="#").nubmer
+				div.nubmer
 					.mb.sprite
 					strong 212-639-9675
-					span
+					if lang === 'ru'
+						a(href="/?lang=en") Eng
+					else
+						a(href="/?lang=ru") Rus
 		//- fotter
 		footer
 			p.copy &copy;2013, Main Media Master
@@ -66,9 +69,9 @@ html(ng-app="app")
 							  id="main_player"
 							 )
 
-						h2.title about
+						h2.title #{titles[0]}
 						p.description.text !{mainText}
-						a.read-more.link(href="#about") Read more
+						a.read-more.link(href="#about") #{titles[4]}
 
 						if clients.length
 							//- carousel
@@ -88,7 +91,7 @@ html(ng-app="app")
 				//- about
 				section#about
 					.wrapper-section
-						h2.title about
+						h2.title #{titles[0]}
 						p.description.text !{aboutText}
 						//- grid
 						.grid
@@ -103,7 +106,7 @@ html(ng-app="app")
 				section#service
 					.wrapper-section
 						.title-bg
-							h2.title Service
+							h2.title #{titles[1]}
 							p.description.text !{serviceText}
 						.grid
 							each service in services
@@ -124,7 +127,7 @@ html(ng-app="app")
 									width="1100", height="400"
 									id="works_player"
 								)
-								h2.title works
+								h2.title #{titles[2]}
 
 								.grid
 									each work in works
@@ -149,7 +152,7 @@ html(ng-app="app")
 				section#contacts
 					.wrapper-section
 						#map(style="width: 100%; height: 228px;")
-						h2.title contacs
+						h2.title #{titles[3]}
 						p.description.text !{contactsText}
 
 		//-

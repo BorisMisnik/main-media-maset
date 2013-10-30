@@ -5,7 +5,13 @@ var model = require('../models/main')
 
 // post */mainAbout/*
 exports.getText = function(req, res){
-	model.getText(req.query.name, function(err, result){
+	var name = req.query.name;
+	var language = req.query.language;
+	var query = {};
+	query[name] = { $exists: true };
+	query.language = language;
+	console.log(query)
+	model.getText(query, function(err, result){
 		if( err ) return res.send({error : err});
 		res.send({data : result});
 	});
@@ -14,7 +20,15 @@ exports.getText = function(req, res){
 exports.saveText = function(req, res){
 	var text = req.body.text;
 	var name = 	req.body.name;
-	model.saveText(req.body.name, text, function(err){
+	var query = {};
+	query[name] = { $exists: true };
+	query.language = req.body.language;
+
+	var set = {};
+	set[name] = req.body.text
+	set.language = req.body.language;
+
+	model.saveText(query, set, function(err){
 		if( err ) return res.send({error : err});
 		res.send({data : true});
 	});
@@ -40,25 +54,46 @@ exports.saveIteam = function(req, res){
 		var name = req.files.image.name;
 		var path = req.files.image.path;
 		var index = req.body.index;
+		var language = req.body.language;
 		var query = {};
+
 		model.saveImage(name, path, function(err, result){
 			if( err ) return console.log( err );
 			var img = '/uploads/' + name;
 			if( req.body.category === 'service' ){ // save service item
-				query.type = 'service';
-				query.title = req.body.title;
-				query.index = req.body.index;
-				query.img = img;
-				query.description = req.body.description;
+				query = {
+					type : 'service',
+					title : req.body.title,
+					index : req.body.index,
+					img : img,
+					description : req.body.description,
+					language : language
+				}
 			}
 			else if ( req.body.name && req.body.job ){ // worker
-				query = {type:'workers', name : req.body.name, job: req.body.job, img : img, index:index};
+				query = {
+					type:'workers', 
+					name : req.body.name, 
+					job: req.body.job, 
+					img : img, 
+					index:index,
+					language : language
+				};
 			} 
 			else if( req.body.category === 'socialButton' ){ // fotter buttons
-				query = {type:'socialButton', link : req.body.link, img : img, index:index};
+				query = {
+					type:'socialButton', 
+					link : req.body.link, 
+					img : img, 
+					index: index,
+					language : language
+				};
 			}
 			else {
-				query = {type:'clients', img : img,  index:index}; // client
+				query = {
+					type:'clients', 
+					img : img,  
+					index:index}; // client
 			}
 
 			model.saveIteam(query, function(err, result){
@@ -82,7 +117,8 @@ exports.updateItem = function(req, res){
 			type:'workers', 
 			name : req.body.name, 
 			job: req.body.job,
-			index: req.body.index
+			index: req.body.index,
+			language : req.body.language
 		}
 	}
 	else if( req.body.type === 'service' ){
@@ -90,7 +126,8 @@ exports.updateItem = function(req, res){
 			type:'service', 
 			title : req.body.title, 
 			index: req.body.index,
-			description: req.body.description
+			description: req.body.description,
+			language : req.body.language
 		}
 	}
 	else if ( req.body.type === 'socialButton' ){

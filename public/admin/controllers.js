@@ -12,24 +12,39 @@ function AppCtrl($scope){
 }
 function ControllerMain($scope, Text, Items){
 	var $textarea = $('#main .textarea');
-
-	Text.query({type:'getText',name:'mainText'}, function(res){ // get text
-		
-		if( !res.data[0] ) return;
-		var text = res.data[0].mainText;
-		 // update text editor
-		 updateEditor(text);
-	});
+	$scope.languageText  = 'ru';
+	function getText(){
+		Text.query({
+			type:'getText', 
+			name:'mainText',
+			language : $scope.languageText
+		}, function(res){ // get text
+			if( !res.data[0] ) return;
+			var text = res.data[0].mainText;
+			updateEditor(text); // update text editor
+		});
+	};
+	getText();
 
 	Items.query({type:'getItems', name:'clients'}, function(res){
 		$scope.clients = res.data;
 	})
 
+	
 	// save new text
 	$scope.save = function(){
 		var val = $textarea.val();
-		Text.save({type:'saveText',name:'mainText', text: val}, function(res){ console.log(res) }); //save new text
+		Text.save({
+			type:'saveText',
+			name:'mainText', 
+			text: val,
+			language : $scope.languageText
+		}, function(res){}); //save new text
 	};
+
+	$scope.$watch('languageText', function(){
+		getText();
+	})
 
 	// remove item
 	$scope.removeItem = function(id, type){
@@ -45,19 +60,36 @@ function ControllerMain($scope, Text, Items){
 };
 function ControllerAbout($scope, Text, Items){
 	var $textarea = $('#about .textarea');
+	$scope.languageText  = 'ru';
 
-	Text.query({type:'getText',name:'aboutText'}, function(res){ // get text
-		if( !res.data[0] ) return;
-		var text = res.data[0].aboutText;
-		// update text editor
-		 updateEditor(text);
-	});
+	function getText(){
+		Text.query({
+			type:'getText', 
+			name:'aboutText',
+			language : $scope.languageText
+		}, function(res){ // get text
+			if( !res.data[0] ) return;
+			var text = res.data[0].aboutText;
+			 updateEditor(text); // update text editor
+		});
+	};
+	getText();
+	
 
 	// save new text
 	$scope.save = function(){
 		var val = $textarea.val();
-		Text.save({type:'saveText',name:'aboutText', text: val}, function(res){}); //save new text
+		Text.save({
+			type:'saveText',
+			name:'aboutText', 
+			text: val,
+			language : $scope.languageText
+		}, function(res){}); //save new text
 	};
+
+	$scope.$watch('languageText', function(){
+		getText();
+	})
 
 	Items.query({type:'getItems', name:'workers'}, function(res){
 		$scope.workers = res.data;
@@ -90,19 +122,35 @@ function ControllerAbout($scope, Text, Items){
 }
 function ControllerService($scope, Text, Items){
 	var $textarea = $('#service .textarea');
+	$scope.languageText  = 'ru';
 
-	Text.query({type:'getText',name:'serviceText'}, function(res){ // get text
-		if( !res.data[0] ) return;
-		var text = res.data[0].serviceText;
-		// update text editor
-		 updateEditor(text);
-	});
+	function getText(){
+		Text.query({
+			type:'getText', 
+			name:'serviceText',
+			language : $scope.languageText
+		}, function(res){ // get text
+			if( !res.data[0] ) return;
+			var text = res.data[0].serviceText;
+			updateEditor(text); // update text editor
+		});
+	};
+	getText();
 
 	// save new text
 	$scope.save = function(){
 		var val = $textarea.val();
-		Text.save({type:'saveText',name:'serviceText', text: val}, function(res){}); //save new text
+		Text.save({
+			type:'saveText',
+			name:'serviceText', 
+			text: val,
+			language : $scope.languageText
+		}, function(res){}); //save new text
 	};
+
+	$scope.$watch('languageText', function(){
+		getText();
+	})
 
 	// remove service
 	$scope.remove = function(id){
@@ -134,21 +182,35 @@ function ControllerService($scope, Text, Items){
 
 function ControllerContacts($scope, Text, Items){
 	var $textarea = $('#contacts .textarea');
-	Text.query({type:'getText',name:'contactsText'}, function(res){ // get text
-		if( !res.data[0] ) return;
-		var text = res.data[0].contactsText;
-		setTimeout(function(){
-			// update text editor
-		 	updateEditor(text);
-		}, 200)
-		// update text editor
-	});
+	$scope.languageText  = 'ru';
+
+	function getText(){
+		Text.query({
+			type:'getText', 
+			name:'contactsText',
+			language : $scope.languageText
+		}, function(res){ // get text
+			if( !res.data[0] ) return;
+			var text = res.data[0].contactsText;
+			updateEditor(text); // update text editor
+		});
+	};
+	getText();
 
 	// save new text
 	$scope.save = function(){
 		var val = $textarea.val();
-		Text.save({type:'saveText',name:'contactsText', text: val}, function(res){ console.log(res) }); //save new text
+		Text.save({
+			type:'saveText',
+			name:'contactsText', 
+			text: val,
+			language : $scope.languageText
+		}, function(res){}); //save new text
 	};
+
+	$scope.$watch('languageText', function(){
+		getText();
+	})
 
 	$scope.remove = function(id){
 		Items.delete({id : id, type:'removeItem'}, function(response){
@@ -167,7 +229,6 @@ function ControllerContacts($scope, Text, Items){
 			img : contact.img,
 			id : contact._id
 		}
-		console.log($scope.modal)
 	}
 
 

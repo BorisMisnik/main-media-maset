@@ -2,10 +2,27 @@ var model = require('../models/main')
   , async = require('async');
 
 exports.index = function(req, res){
+
+	if( !req.query.hasOwnProperty('lang') ) res.redirect('/?lang=en');
+	if( req.query.lang !== 'ru' && req.query.lang !== 'en' ) return res.redirect('/?lang=en')
+
+	var lang = req.query.lang;
 	var page = {};
+
+	var titles = [];
+	if( lang === 'ru' )
+		titles = ['О нас', 'Сервисы', 'Работы', 'Контакты', 'Читать дальше'];
+	else
+		titles = ['About', 'Service', 'Works', 'Contacts', 'Read more'];
+
+	page.lang = lang;
+	page.titles = titles;
 	async.parallel([
 		function (callback){ // get title main
-			model.getText('mainText', function(err, result){
+			var query = {};
+			query['mainText'] = {$exists : true};
+			query.language = lang;
+			model.getText(query, function(err, result){
 				if( err ) return callback(err, null);
 				page.mainText = result[0].mainText;
 				callback(null);
@@ -19,7 +36,10 @@ exports.index = function(req, res){
 			});
 		},
 		function (callback){ // get about text
-			model.getText('aboutText', function(err, result){
+			var query = {};
+			query['aboutText'] = {$exists : true};
+			query.language = lang;
+			model.getText(query, function(err, result){
 				if( err ) return callback(err, null);
 				page.aboutText = result[0].aboutText;
 				callback(null);
@@ -30,10 +50,13 @@ exports.index = function(req, res){
 				if( err ) return callback(err, null);
 				page.workers = result;
 				callback(null);
-			});
+			}, lang);
 		},
 		function (callback){ // get service text
-			model.getText('serviceText', function(err, result){
+			var query = {};
+			query['serviceText'] = {$exists : true};
+			query.language = lang;
+			model.getText(query, function(err, result){
 				if( err ) return callback(err, null);
 				page.serviceText = result[0].serviceText;
 				callback(null);
@@ -57,17 +80,20 @@ exports.index = function(req, res){
 				};
 				page.services = result;
 				callback(null);
-			});
+			}, lang);
 		},
 		function (callback){ //get works list
 			model.getItems('work', function(err, result){
 				if( err ) return callback(err, null);
 				page.works = result;
 				callback(null);
-			});
+			}, lang);
 		},
 		function (callback){ // get  contacts Text
-			model.getText('contactsText', function(err, result){
+			var query = {};
+			query['contactsText'] = {$exists : true};
+			query.language = lang;
+			model.getText(query, function(err, result){
 				if( err ) return callback(err, null);
 				page.contactsText = result[0].contactsText;
 				callback(null);

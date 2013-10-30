@@ -34,6 +34,10 @@ module.exports = function(grunt){
 			style : {
 				files : './public/css/*.less',
 				tasks : 'less'
+			},
+			template : {
+				files : './public/admin/partials/*.jade',
+				tasks : 'jade'
 			}
 		},
 		jade: {
