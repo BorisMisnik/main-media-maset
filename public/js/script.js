@@ -194,14 +194,14 @@
 			// page works
 			if( $('#works_player .vjs-control-bar').length ) return;
 
-  			videojs('works_player',{ "controls": true, "autoplay": false, "preload": "auto" }).ready(function(){
-  				var myPlayer = this;
-  				myPlayer.src([
-					// { type: "video/ogg", src: "video/iPhone5.ogv" },
-					// { type: "video/mp4", src: "video/iPhone5.mp4" }
-					{ type: "video/mp4", src: "video/iPhone5_libtheora.ogv" }
-				]);
-			});
+  	// 		videojs('works_player',{ "controls": true, "autoplay": false, "preload": "auto" }).ready(function(){
+  	// 			var myPlayer = this;
+  	// 			myPlayer.src([
+			// 		// { type: "video/ogg", src: "video/iPhone5.ogv" },
+			// 		// { type: "video/mp4", src: "video/iPhone5.mp4" }
+			// 		{ type: "video/mp4", src: "video/iPhone5_libtheora.ogv" }
+			// 	]);
+			// });
 		},
 		plugins : (function(){
 			$('#scroll').niceScroll(); // enable nice scroll
@@ -221,8 +221,8 @@
   			videojs('works_player',{ "controls": true, "autoplay": false, "preload": "auto" }).ready(function(){
   				var myPlayer = this;
   				myPlayer.src([
-					// { type: "video/webm", src: "video/MainMediaMaster.webm" },
-					// { type: "video/ogg", src: "video/MainMediaMaster.ogv" },
+					{ type: "video/webm", src: "video/iPhone5.webm" },
+					{ type: "video/ogg", src: "video/iPhone5.ogv" },
 					{ type: "video/mp4", src: "video/iPhone5.mp4" },
 				]);
 			});
