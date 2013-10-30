@@ -17,6 +17,7 @@ app.use(express.cookieParser());
 app.use(express.session({secret: '1234567890QWERTY'}));
 app.use(app.router);
 app.use(express.static( __dirname + '/public' ));
+app.use(express.static( __dirname + '/admin' ));
 
 // connect to mongodb and start server
 model.connect(function(){
