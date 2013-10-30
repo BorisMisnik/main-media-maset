@@ -1,0 +1,93 @@
+section#about()
+						h2 Описание раздела "Про нас"
+						form(class="editor")
+							textarea.textarea(placeholder='Enter text ...')
+							br
+							button(type="button", class="btn btn-success btn-large", ng-click="save()") Save
+						h4 Список сотрудников
+						table(class="table table-striped")
+							tr
+								th Имя
+								th Профессия
+								th Индекс
+								th Фото
+								th 
+								th 
+							tr(ng-repeat="worker in workers")
+								td {{worker.name}}
+								td {{worker.job}}
+								td {{worker.index}}
+								td 
+									img(ng-src="{{worker.img}}", alt="")
+								td 
+									button.btn.btn-danger(ng-click="removeItem(worker._id, worker.type);") Удалить
+								td 
+									button.btn.btn-warning(ng-click="changeItem(worker);") Изменить
+						h4 Добавить сотрудника
+						form(method="post", 
+							action="/admin/saveIteam", 
+							enctype="multipart/form-data", 
+							class="span6 well", style="margin:0 0 20px;"
+							)
+							.control-group
+								label.control-label(for='name') Имя
+								.controls
+									input#name.form-control(type='text', placeholder='Name', name="name", required, class="input-xlarge")
+							.control-group
+								label.control-label(for='job') Профессия
+								.controls
+									input#job.form-control(type='text', placeholder='Job', name="job", required, class="input-xlarge")
+							.control-group
+								label.control-label(for='indexWorker') Индекс
+								.controls
+									input#indexWorker.form-control(type='text', placeholder='Index', name="index", required, class="input-xlarge")
+							.control-group	
+								label.control-label() Фото
+								.controls
+									input(type='file', style="display:block;", accept="image/*", name="image")
+
+							button.btn.btn-primary(type='submit', style="margin:10px 0 0;") Go!
+						//- Modal About
+						#aboutModal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+							form(method="post", 
+								action="/admin/updateItem", 
+								enctype="multipart/form-data")
+								.modal-header
+									button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+									h3#myModalLabel About
+								.modal-body
+									.control-group
+										label.control-label(for='newName') Имя
+											.controls
+											input#newName.form-control(type='text'
+												placeholder='Name'
+												name="name"
+												value = "{{modal.name}}"
+												class="input-xlarge")
+									.control-group
+										label.control-label(for='newJob') Профессия
+											.controls
+											input#newJob.form-control(
+													type='text'
+													placeholder='Job'
+													name="job"
+													value = "{{modal.job}}"
+													class="input-xlarge")
+									.control-group
+										label.control-label(for='newIndex') Индекс
+											.controls
+											input#newIndex.form-control(
+												type='text'
+												placeholder='Index'
+												name="index"
+												value = "{{modal.index}}"
+												class="input-xlarge")
+									.control-group	
+										label.control-label() Фото
+											.controls
+											input(type='file', style="display:block;", accept="image/*", name="image", value="{{modal.img}}")
+											input(type="hidden", value="{{modal.id}}", name="_id")
+											input(type="hidden", value="workers", name="type")
+								.modal-footer
+									button.btn(data-dismiss='modal', aria-hidden='true') Close
+									button.btn.btn-primary(type="submit") Save changes

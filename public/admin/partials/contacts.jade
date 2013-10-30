@@ -1,0 +1,74 @@
+section#contacts()
+	form(class="editor")
+		h2 Контакты
+		textarea.textarea(placeholder='Enter text ...')
+		br
+		button(type="button", class="btn btn-success btn-large", ng-click="save()") Save
+
+	h4 Список кнопок
+		table(class="table table-striped", style="background-color:#CACACA;")
+			tr
+				th Индекс
+				th Ссылка
+				th Картинка
+				th 
+				th 
+			tr(ng-repeat="contact in contacts")
+				td {{contact.index}}
+				td {{contact.link}}
+				td 
+					img(ng-src="{{contact.img}}", alt="")
+				td 
+					button.btn.btn-danger(ng-click="remove(contact._id);") Удалить
+				td 
+					button.btn.btn-warning(ng-click="change(contact);") Изменить
+
+	form(method="post", 
+		action="/admin/saveIteam", 
+		enctype="multipart/form-data", 
+		class="span6 well", style="margin:0 0 20px;"
+		)				
+		.control-group
+			label.control-label(for='index') Индекс
+			.controls
+			input#index.form-control(type='text', placeholder='Index', name="index", , class="input-xlarge", required)
+		.control-group
+			label.control-label(for='link') Ссылка
+			.controls
+			input#link.form-control(type='text', placeholder='Ссылка', name="link", , class="input-xlarge", required)
+		.control-group	
+			label.control-label() Изображение
+			.controls
+			input(type='file', style="display:block;", accept="image/*", name="image")
+		.control-group	
+			label.control-label()
+			.controls
+				input(type="hidden", name="category", value="socialButton")
+				input(type='submit', class=".btn.btn-primary") Save
+
+	#contactModal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+		form(method="post", 
+			action="/admin/updateItem", 
+			enctype="multipart/form-data")
+			.modal-header
+				button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+				h3#myModalLabel Контакт
+			.modal-body
+				.control-group
+					label.control-label(for='') Индекс
+					.controls
+					input.form-control(type='text', placeholder='Index', name="index", , class="input-xlarge", value="{{modal.index}}")
+				.control-group
+					label.control-label(for='') Ссылка
+					.controls
+					input.form-control(type='text', placeholder='Ссылка', name="link", , class="input-xlarge", value="{{modal.link}}")
+				.control-group	
+					label.control-label() Изображение
+					.controls
+					input(type='file', style="display:block;", accept="image/*", name="image")
+			.modal-footer
+				button.btn(data-dismiss='modal', aria-hidden='true') Close
+				input(type="hidden", name="type", value="socialButton")
+				input(type="hidden", name="_id", value="{{modal.id}}")
+				button.btn.btn-primary(type="submit") Save changes
+

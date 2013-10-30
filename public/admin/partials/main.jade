@@ -1,0 +1,26 @@
+section#main()
+						//- text editor
+						form(class="editor")
+							h2 Главная Описание раздела
+							textarea.textarea(placeholder='Enter text ...')
+							br
+							button(type="button", class="btn btn-success btn-large", ng-click="save()") Save
+						//- list clients
+						h4 Список клиентов
+						.row
+							.span2(ng-repeat="client in clients", class="client")
+								img(ng-src="{{client.img}}" ,alt="")
+								button(
+								  ng-click="removeItem(client._id, client.type)", 
+								  class="btn btn-danger") Удалить
+						h4 Добавить клиента	
+						form(method="post", 
+							action="/admin/saveIteam", 
+							enctype="multipart/form-data", 
+							class="span6 well", style="margin:0 0 20px;"
+							)
+							input(type='file', style="display:block;", accept="image/*", name="image")
+							label.control-label(for='index') Index
+								.controls
+									input#index.form-control(type='text', placeholder='Index', name="index", required, class="input-xlarge")
+							button.btn.btn-primary(type='submit', style="margin:10px 0 0;") Go!

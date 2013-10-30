@@ -1,0 +1,135 @@
+section#work()
+						.row
+							.span12
+						table(class="table table-striped")
+							tr
+								th Заголовок
+								th Индекс
+								th Описание
+								th Preview image
+								th Видео
+								th Изображение
+								th Удалить
+								th Изменить
+							tr(ng-repeat="work in works")
+								td {{work.title}}
+								td {{work.index}}
+								td {{work.description}}
+								td(style="text-align:center;")
+									img(ng-src="{{work.prewie}}", alt="", style="max-height:60px")
+								td(style="word-break: break-all;")
+									a(href="http://www.youtube.com/watch?v={{work.id_video}}", target="_blank", ng-show="work.id_video.length > 0") 
+										|http://www.youtube.com/watch?v={{work.id_video}} 
+								td 
+									a(href="", target="_blank", ng-show="work.file.length > 0", ng-click="showPhoto(work.file);") Смотреть
+								td
+									button.btn.btn-danger(ng-click="remove(work._id)") Удалить
+								td 
+									button.btn.btn-warning(ng-click="change(work)") Изменить
+						h3 Добавить роботу
+						.row
+							.span12.well
+								form(method="post", action="/admin/saveWork", 
+								enctype="multipart/form-data")
+									.control-group
+										label.control-label(for='title') Заголовок
+									.controls
+										input#title.form-control(type='text',
+												placeholder='Title', 
+												name="title", 
+												required,
+												maxlength="38",
+												class="input-xlarge")
+									.control-group
+										label.control-label(for='index') Индекс
+									.controls
+										input#index.form-control(type='text',
+												placeholder='Индекс', 
+												name="index", 
+												required,
+												class="input-xlarge")
+									.control-group
+										label.control-label(for='lognDescription') Описание
+									.controls
+										textarea#lognDescription.form-control(
+												name="lognDescription",
+												required)
+									.control-group
+										label.control-label(for='previewimage') Preview image
+									.controls
+										input#previewimage.form-control(type='file',
+												name="previewimage",
+												accept="image/*",
+												required)
+									.control-group
+										label.control-label(for='') Type
+									.controls
+										input.typeContent.form-control(type='radio',name="typeContent", value="image") 
+										|Image
+										input.typeContent.form-control(type='radio',name="typeContent", value="youtube") 
+										|Youtube 
+									.control-group
+										label.control-label.label_image(for='file') Файл изображения
+									.controls
+										input#file.form-control(type='file',
+												name="file")
+									.controls
+										input#id_video.form-control(type='text',
+												name="id_video", placeholder="Только ID видео")
+									input(type="hidden", name="category", value="work")
+									button.btn.btn-primary(type='submit', style="margin:10px 0 0;") Go!
+						#photoModal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+							img(ng-src="{{photo}}", alt="")
+							.modal-footer
+								button.btn(data-dismiss='modal', aria-hidden='true') Close
+						#workModal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+							.modal-header
+								button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+								h3#myModalLabel Work
+							.modal-body
+								form(method="post", action="/admin/saveWork", 
+									enctype="multipart/form-data")
+										.control-group
+											label.control-label(for='') Заголовок
+										.controls
+											input.form-control(type='text',
+													placeholder='Title', 
+													name="title", 
+													value="{{modal.title}}"
+													maxlength="38",
+													class="input-xlarge")
+										.control-group
+											label.control-label(for='') Индекс
+										.controls
+											input.form-control(type='text',
+													placeholder='Индекс', 
+													name="index", 
+													value="{{modal.index}}"
+													class="input-xlarge")
+										.control-group
+											label.control-label(for='') Описание
+										.controls
+											textarea.form-control(
+													name="lognDescription")
+												|{{modal.description}}
+										.control-group
+											label.control-label(for='') Preview image
+										.controls
+											input.form-control(type='file',
+													name="previewimage",
+													accept="image/*")
+										.control-group
+											label.control-label.label_image(for='') Файл изображения
+										.controls
+											input.form-control(type='file',
+													name="file")
+										.control-group
+											label.control-label.label_image(for='') Видео
+										.controls
+											input.form-control(type='text',
+													name="id_video", placeholder="Только ID видео", value="{{modal.video}}")
+										input(type="hidden", name="category", value="work")
+										input(type="hidden", name="_id", value="{{modal.id}}")
+										.modal-footer
+											button.btn(data-dismiss='modal', aria-hidden='true') Close
+											button.btn.btn-primary(type="submit") Save changes

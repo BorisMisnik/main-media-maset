@@ -1,0 +1,84 @@
+section#service
+						h2 Описание раздела "Cервисы"
+						form(class="editor")
+							textarea.textarea(placeholder='Enter text ...')
+							br
+							button(type="button", class="btn btn-success btn-large", ng-click="save()") Save
+						h4 Список сервисов
+						table(class="table table-striped")
+							tr
+								th Заголовок
+								th Индекс
+								th Описание
+								th Картинка
+								th 
+								th 
+							tr(ng-repeat="service in services")
+								td {{service.title}}
+								td {{service.index}}
+								td {{service.description}}
+								td 
+									img(ng-src="{{service.img}}", alt="")
+								td 
+									button.btn.btn-danger(ng-click="remove(service._id);") Удалить
+								td 
+									button.btn.btn-warning(ng-click="change(service);") Изменить
+
+						form(method="post", 
+							action="/admin/saveIteam", 
+							enctype="multipart/form-data", 
+							class="span6 well", style="margin:0 0 20px;"
+							)
+							.control-group
+								label.control-label(for='title') Заголовок
+								.controls
+									input#title.form-control(type='text', placeholder='Title', name="title", required, class="input-xlarge")
+							.control-group
+								label.control-label(for='indexWorker') Индекс
+								.controls
+									input#indexWorker.form-control(type='text', placeholder='Index', name="index", , class="input-xlarge", required)
+
+							.control-group
+								label.control-label(for='description') Описание
+								.controls
+									textarea#description(placeholder='Enter text ...', name="description", required)
+							.control-group	
+								label.control-label() Изображение
+								.controls
+									input(type='file', style="display:block;", accept="image/*", name="image", required)
+
+							.control-group	
+								label.control-label()
+								.controls
+									input(type="hidden", name="category", value="service")
+									input(type='submit', class=".btn.btn-primary") Save
+						#serviceModal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
+							form(method="post", 
+									action="/admin/updateItem", 
+									enctype="multipart/form-data")
+									.modal-header
+										button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+										h3#myModalLabel Service
+									.modal-body
+										.control-group
+											label.control-label(for='') Заголовок
+											.controls
+											input.form-control(type='text', placeholder='Title', name="title", class="input-xlarge", value="{{modal.title}}")
+										.control-group
+											label.control-label(for='') Индекс
+											.controls
+												input.form-control(type='text', placeholder='Index', name="index", , class="input-xlarge", value="{{modal.index}}")
+										.control-group
+											label.control-label(for='') Описание
+											.controls
+												textarea(placeholder='Enter text ...', name="description", value="{{modal.description}}")
+													|"{{modal.description}}"
+										.control-group	
+											label.control-label() Изображение
+											.controls
+												input(type='file', style="display:block;", accept="image/*", name="image")
+												input(type="hidden", value="{{modal.id}}", name="_id")
+												input(type="hidden", value="service", name="type")
+										.modal-footer
+											button.btn(data-dismiss='modal', aria-hidden='true') Close
+											button.btn.btn-primary(type="submit") Save changes
