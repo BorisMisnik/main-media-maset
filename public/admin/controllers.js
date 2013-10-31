@@ -299,6 +299,29 @@ function ControllerWork($scope, $location, Items){
 }
 
 function ControllerWorkEdit($scope, $routeParams, Items){
+	$scope.uploads = [];
+	function status(message) {
+		$('.status').text(message);
+    }
+	$('#uploadForm').submit(function() {
+        status('uploading the file ...');
+ 
+        $(this).ajaxSubmit({                                                                                                                 
+            error: function(xhr) {
+				status('Error: ' + xhr.status);
+            },
+            success: function(response) {
+				 if(response.error) {
+            		status('Ошибка');
+            		return;
+        		}
+        		var imageUrlOnServer = response.path.replace('public/', '');
+				$scope.uploads.push(imageUrlOnServer);
+				$scope.$apply();
+            }
+		});                                                                                                              
+		return false;
+    });
 	$.get('/admin/getItem', {id : $routeParams.id}, function(response){
 		console.log(response)
 		updateEditor(response.description);

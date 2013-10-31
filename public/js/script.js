@@ -86,11 +86,13 @@
 			});
 		},
 		workSlider : function(){
+			var _this = this;
 			$('#works').on('click', '.div', $.proxy(app.showWork,app));
 			$('.goback').on('click', slideToWorks);
 
 			function slideToWork () {
 				$('.slider-works').css('margin-left','-1100px');
+				_this.setSectionHeight();
 			};
 
 			function slideToWorks (e) {
@@ -112,19 +114,15 @@
 				});
 		},
 		renderWork : function(result){
-			console.log(result)
+			var _this = this;
 			$('.title-job').text(result.title);
-			$('.one-work .description').text(result.description);
-
-			if( result.typeContent === 'image' ){
+			$('.one-work .description').html(result.description);
+			$('.img-block').hide();
+			if( result.id_video === '' ){
 				$('.video-block').hide();
-				$('.img-block').show();
 				$('.img-block').children('img').attr('src', result.file);
 			} else{
-
 				$('.video-block').show();
-				$('.img-block').hide();
-
 				setTimeout(function(){
 					$('.video-block').tubeplayer({
 						width: 961, // the width of the player
@@ -133,10 +131,12 @@
 						initialVideo: result.id_video, // the video that is loaded into the player
 						preferredQuality: "default" // preferred quality: default, small, medium, large, hd720
 					});
+					_this.container.height($('.one-work').height() + 100);
+					_this.setSectionHeight();
 				}, 600);
 			}
-
 			this.slideToWork();
+			
 		},
 		slideToWork : function(){
 			$('.slider-works').css('margin-left','-1100px');
