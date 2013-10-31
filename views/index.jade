@@ -112,7 +112,8 @@ html(ng-app="app")
 							each service in services
 								if service
 									.div
-										img(src="#{service.img}", alt="#{service.title}")
+										.wrapper-img
+											img(src="#{service.img}", alt="#{service.title}")
 										.details
 											h3.title #{service.title}
 											p.text #{service.description}
@@ -133,7 +134,7 @@ html(ng-app="app")
 									each work in works
 										.div(data-id="#{work._id}")
 											.img-wrapper
-												img(src="#{work.prewie}", alt=" ")
+												img(src="#{work.img}", alt=" ")
 												p 
 													span #{work.title}
 							.one-work
@@ -151,7 +152,7 @@ html(ng-app="app")
 				//- works
 				section#contacts
 					.wrapper-section
-						#map(style="width: 100%; height: 228px;")
+						#map(style="width: 100%; height: 280px;")
 						h2.title #{titles[3]}
 						p.description.text !{contactsText}
 

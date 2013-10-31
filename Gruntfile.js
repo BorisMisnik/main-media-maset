@@ -53,6 +53,7 @@ module.exports = function(grunt){
 	  				'public/admin/partials/main.html' : 'public/admin/partials/main.jade',
 	  				'public/admin/partials/service.html' : 'public/admin/partials/service.jade',
 	  				'public/admin/partials/work.html' : 'public/admin/partials/work.jade',
+	  				'public/admin/partials/work-edit.html' : 'public/admin/partials/work-edit.jade',
 				}
 			}
 		}

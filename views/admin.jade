@@ -9,11 +9,14 @@ html(ng-app="admin", ng-controller="AppCtrl")
 		link(rel="stylesheet", href="admin/css/bootstrap-wysihtml5.css")
 		link(rel="stylesheet", href="admin/css/redactor.css")
 		link(rel="stylesheet", href="admin/css/admin.css")
+		link(rel="stylesheet", type="text/css", href="//blueimp.github.io/jQuery-File-Upload/css/jquery.fileupload.css")
+		link(rel="stylesheet", type="text/css", href="//blueimp.github.io/jQuery-File-Upload/css/jquery.fileupload-ui.css")
 
 		script(src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+		script(src="//cdnjs.cloudflare.com/ajax/libs/jquery.form/3.32/jquery.form.js")
+
 		script(src="admin/libs/bootstrap.min.js")
 		script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.6/angular.min.js")
-		
 
 		script(src="admin/libs/wysihtml5-0.4.0pre.min.js")
 		script(src="admin/libs/bootstrap-wysihtml5.js")
@@ -21,6 +24,7 @@ html(ng-app="admin", ng-controller="AppCtrl")
 		script(src="admin/controllers.js")
 		script(src="admin/service.js")
 		script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular-resource.min.js")
+
 
 	body
 		.container

@@ -10,6 +10,7 @@ angular.module('adminServices', ['ngResource']).
 			query: {method:'GET', params:{name:'@name'}, isArray:false}, //get item
 			delete: {method:'DELETE', params:{id:'@id'}},//remove item
 			save : {method:'POST', isArray:false}, // save item
-			update : {metohd:'POST'} // update item
+			update : {metohd:'POST'}, // update item
+			getItem : {metohd:'GET'} // get items
 	  	});
 	})

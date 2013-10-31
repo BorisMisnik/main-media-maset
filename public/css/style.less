@@ -168,6 +168,7 @@ header{
 		text-transform: capitalize;
 		color:#4aaf57;
 		transition:color 600ms ease-in-out;
+		font-family: 'MyriadPro';
 		&:hover{
 			color:#464646;
 			text-decoration: none;
@@ -262,9 +263,12 @@ footer{
 	color:#4aaf57;
 	font-size: 14px;
 	font-family: 'MyriadProIt';
-	transition:color 600ms ease-in-out;
+	transition:all 600ms ease-in-out;
+	text-decoration: none;
+	border-bottom: 1px dashed  #4aaf57;
 	&:hover{
 		color:#464646;
+		border-color: transparent;
 	}
 }
 .carousel{
@@ -473,6 +477,17 @@ footer{
 	.radio-div{
 		margin-left: 190px !important;
 	}
+	.wrapper-img{
+		width:100%;
+		height: 60px;
+		text-align: center;
+		line-height: 60px;
+		img{
+			max-width: 214px;
+			height: auto;
+			vertical-align: middle;
+		}
+	}
 }
 .branding{
 	width: 46px;
@@ -530,10 +545,16 @@ footer{
 			cursor:pointer;
 			-webkit-transition:all 800ms ease-in-out;
 			transition:all 800ms ease-in-out;
+			p{
+				transition:all 500ms ease-in-out;
+			}
 			&:nth-child(4n){margin-left: 17px !important;}
 			&:nth-child(5n){margin-left: 0;}
 			&.shadow{
 				box-shadow: 0 0 7px hsla(0,0,0,.5);
+			}
+			&:hover p {
+				background-color: #464646
 			}
 		}
 		.img-wrapper{
@@ -611,7 +632,7 @@ footer{
 // map
 #map{
 	width:100%;
-	height: 228px;
+	height: 350px;
 }
 #contacts .wrapper-section,
 #service .wrapper-section{

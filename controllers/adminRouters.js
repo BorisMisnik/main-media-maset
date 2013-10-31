@@ -43,6 +43,7 @@ exports.getItems = function(req, res){
 }
 // get  */getItem/*
 exports.getItem = function(req, res){
+	console.log(req.query.id)
 	model.getItem(req.query.id, function(err, result){
 		if( err ) return res.send(404);
 		res.send(result[0]);
@@ -89,6 +90,19 @@ exports.saveIteam = function(req, res){
 					language : language
 				};
 			}
+			else if( req.body.category === 'work' ){
+				console.log(req.body.lognDescription)
+				query = {
+					type:'work', 
+					img : img,  
+					index:index,
+					language : language,
+					title : req.body.title,
+					description : req.body.lognDescription,
+					video : req.body.video, 
+					id_video : req.body.id_video
+				}
+			}
 			else {
 				query = {
 					type:'clients', 
@@ -111,7 +125,6 @@ exports.updateItem = function(req, res){
 	var path = req.files.image.path;
 	var set = {};
 	var query = {_id : new ObjectID(req.body._id)};
-
 	if( req.body.type === 'workers' ){
 		set = {
 			type:'workers', 
@@ -137,6 +150,17 @@ exports.updateItem = function(req, res){
 			link: req.body.link
 		}
 	} 
+	else if ( req.body.type === 'work' ){
+		set = {
+			type:'work', 
+			index: req.body.index,
+			language : req.body.language,
+			title : req.body.title,
+			description : req.body.lognDescription,
+			video : req.body.video, 
+			id_video : req.body.id_video
+		}
+	}
 	if( name !== '' && path !== '' ){
 		model.saveImage(name, path, function(err, result){
 			if( err ) return console.log( err );
@@ -155,68 +179,68 @@ exports.updateItem = function(req, res){
 		});
 	}
 };
-// post */save work update work
-exports.saveWork = function(req, res){
-					console.log('save work')
+// // post */save work update work
+// exports.saveWork = function(req, res){
+// 					console.log('save work')
 
-	async.series([
-		function(callback){ //save prewie
-			if( req.files.previewimage.size === 0 ){
-				return callback(null, '');
-			}
-			var name = req.files.previewimage.name;
-			var path = req.files.previewimage.path;
-			model.saveImage(name, path, function(err, result){
-				if( err ) return callback(err, null);
-				var img = '/uploads/' + name;
-				callback(null, img);
-			});
-		},
-		function(callback){ //save content file
-			if( req.files.file.name === '' ||  req.files.file.size === 0)
-				return callback(null, '');
-			var name = req.files.file.name;
-			var path = req.files.file.path;
+// 	async.series([
+// 		function(callback){ //save prewie
+// 			if( req.files.previewimage.size === 0 ){
+// 				return callback(null, '');
+// 			}
+// 			var name = req.files.previewimage.name;
+// 			var path = req.files.previewimage.path;
+// 			model.saveImage(name, path, function(err, result){
+// 				if( err ) return callback(err, null);
+// 				var img = '/uploads/' + name;
+// 				callback(null, img);
+// 			});
+// 		},
+// 		function(callback){ //save content file
+// 			if( req.files.file.name === '' ||  req.files.file.size === 0)
+// 				return callback(null, '');
+// 			var name = req.files.file.name;
+// 			var path = req.files.file.path;
 
-			model.saveImage(name, path, function(err, result){
-				if( err ) return callback(err, null);
-				var img = '/uploads/' + name;
-				callback(null, img);
-			});
-		}
-	], function(err, result){
-		var query = {};
-		query.title = req.body.title;
-		query.index = req.body.index;
-		query.description = req.body.lognDescription;
-		query.typeContent = req.body.typeContent;
-		query.type = 'work';
-		if( result[0] !== '' )
-			query.prewie = result[0];
-		if( result[1] !== '' )
-			query.file = result[1];
+// 			model.saveImage(name, path, function(err, result){
+// 				if( err ) return callback(err, null);
+// 				var img = '/uploads/' + name;
+// 				callback(null, img);
+// 			});
+// 		}
+// 	], function(err, result){
+// 		var query = {};
+// 		query.title = req.body.title;
+// 		query.index = req.body.index;
+// 		query.description = req.body.lognDescription;
+// 		query.typeContent = req.body.typeContent;
+// 		query.type = 'work';
+// 		if( result[0] !== '' )
+// 			query.prewie = result[0];
+// 		if( result[1] !== '' )
+// 			query.file = result[1];
 
-		query.typeContent = req.body.is_video === '' ? 'file' : 'video';
-		query.id_video = req.body.id_video;
+// 		query.typeContent = req.body.is_video === '' ? 'file' : 'video';
+// 		query.id_video = req.body.id_video;
 
-		if( req.body._id ){
-			var find = {
-				_id : new ObjectID(req.body._id)
-			};
+// 		if( req.body._id ){
+// 			var find = {
+// 				_id : new ObjectID(req.body._id)
+// 			};
 
-			model.updateItem(find, query, function(err, result){
-				if( err ) return console.log( err );
-				res.redirect('/admin');
-			});
-		}
-		else{
-			model.saveIteam(query, function(err, result){
-				if( err ) return console.log( err );
-				res.redirect('/admin');
-			});
-		}
-	});
-};
+// 			model.updateItem(find, query, function(err, result){
+// 				if( err ) return console.log( err );
+// 				res.redirect('/admin');
+// 			});
+// 		}
+// 		else{
+// 			model.saveIteam(query, function(err, result){
+// 				if( err ) return console.log( err );
+// 				res.redirect('/admin');
+// 			});
+// 		}
+// 	});
+// };
 
 // delete */removeItem/:id*
 exports.removeItem = function(req, res){

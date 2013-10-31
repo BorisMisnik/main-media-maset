@@ -237,10 +237,34 @@ function ControllerContacts($scope, Text, Items){
 	});
 
 }
-function ControllerWork($scope, Items){
+function ControllerWork($scope, $location, Items){
+	$scope.uploads = [];
 	var $id_video = $('#id_video'),
 		$file = $('#work #file'),
 		$label_image = $('.label_image');
+	function status(message) {
+		$('.status').text(message);
+    }
+	$('#uploadForm').submit(function() {
+        status('uploading the file ...');
+ 
+        $(this).ajaxSubmit({                                                                                                                 
+            error: function(xhr) {
+				status('Error: ' + xhr.status);
+            },
+            success: function(response) {
+				 if(response.error) {
+            		status('Ошибка');
+            		return;
+        		}
+        		var imageUrlOnServer = response.path.replace('public/', '');
+				$scope.uploads.push(imageUrlOnServer);
+				$scope.$apply();
+            }
+		});                                                                                                              
+		return false;
+    });
+
 
 	Items.query({type:'getItems', name:'work'}, function(res){
 		$scope.works = res.data;
@@ -262,31 +286,39 @@ function ControllerWork($scope, Items){
 	};
 
 	$scope.change = function(work){
-		$('#workModal').modal('show');
-
-		$scope.modal = {
-			title : work.title,
-			index : work.index,
-			description : work.description,
-			video : work.id_video,
-			id : work._id
-		}
+		$location.path('/work/' + work._id);
 	}
 
-	$('#work [value="youtube"]').on('click', function(){
-		$id_video.show();
-		$file.hide();
-		$label_image.hide();
-	});
-	$('#work [value="image"]').on('click', function(){
-		$id_video.hide();
-		$file.show();
-		$label_image.show();
-	});
+	$scope.submit = function(){
+		var val = $('.textarea').val();
+		$('.description').val(val);
+		console.log(val)
+		$('.saveWork').submit();
+	}
 
-	$id_video .hide();
 }
 
+function ControllerWorkEdit($scope, $routeParams, Items){
+	$.get('/admin/getItem', {id : $routeParams.id}, function(response){
+		console.log(response)
+		updateEditor(response.description);
+		$scope.id_video = response.id_video;
+		$scope.index = response.index;
+		$scope.language = response.language;
+		$scope.title = response.title;
+		$scope.video = response.video;
+		$scope.img = response.img;
+		$scope.id = response._id;
+		$scope.$apply();
+	});
+
+	$scope.submit = function(){
+		var val = $('.textarea').val();
+		$('.description').val(val);
+		console.log(val)
+		$('.saveWork').submit();
+	}
+}
 
 function updateEditor(value){
 	setTimeout(function(){

@@ -1,6 +1,8 @@
 var express = require('express')
   , app = express()
-  , model = require('./models');
+  , model = require('./models')
+  , upload = require('jquery-file-upload-middleware')
+  , fs = require('fs');
 
 // routers
 var index = require('./controllers/index')
@@ -8,7 +10,6 @@ var index = require('./controllers/index')
   , adminRouters = require('./controllers/adminRouters.js')
 
 // configure Express
-// app.set('port', process.env.PORT || 8080); 
 app.set('port', process.env.PORT || 80); 
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
@@ -39,7 +40,19 @@ app.post('/admin/updateItem', adminRouters.updateItem); // get list items
 
 app.post('/admin/saveText', adminRouters.saveText); // save new text
 app.post('/admin/saveIteam', adminRouters.saveIteam); // save item
-app.post('/admin/saveWork', adminRouters.saveWork); // save work
+// app.post('/admin/saveWork', adminRouters.saveWork); // save work
 
 app.delete('/admin/removeItem', adminRouters.removeItem) // remove item
+app.post('/admin/fileUpload', function(req, res){
+ 	var name = req.files.fileUpload.name;
+	var path = req.files.fileUpload.path;
 
+	fs.readFile(path, function (err, data) {
+		if( err ) return res.send({'error': err});
+		var newPath = 'public/uploads/' + name;
+		fs.writeFile(newPath, data, function (err) {
+			if( err ) return res.send({'error':err});
+			res.send({path : newPath});
+		});
+	});
+});

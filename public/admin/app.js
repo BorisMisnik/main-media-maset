@@ -24,6 +24,10 @@ angular
 					templateUrl: 'admin/partials/work.html',
 					controller: 'ControllerWork'
 			 	}).
+			 	when('/work/:id', {
+					templateUrl: 'admin/partials/work-edit.html',
+					controller: 'ControllerWorkEdit'
+			 	}).
 			 	when('/contacts', {
 					templateUrl: 'admin/partials/contacts.html',
 					controller: 'ControllerContacts'

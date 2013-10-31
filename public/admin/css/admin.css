@@ -37,8 +37,8 @@
 	margin-top: 14px;
 }
 #lognDescription{
-	min-width: 412px;
-	min-height: 150px;
+	width: 100%;
+	height: 350px;
 }
 input[type="radio"]{
 	position: relative;
@@ -54,4 +54,10 @@ input[type="radio"]:first-child{
 }
 #photoModal{
 	text-align: center;
+}
+#images{
+	max-width: 100px;
+}
+iframe body{
+	background-color: #000 !important;
 }
