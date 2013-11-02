@@ -23,7 +23,7 @@
 				this.setContainerHeight();
 
 				if(  window.location.hash !== '#main' )
-					this.home.show();
+					this.home.css('display', 'inline-block');
 			}
 
 			
@@ -31,7 +31,7 @@
 		setSectionHeight : function(){
 			this.sections.each(function(){
 				var $this = $(this),
-					h = $this.children('.wrapper-section').height() + 99;
+					h = $this.children('.wrapper-section').height() + 100;
 				$this.height(h);
 			});
 			this.setContainerHeight();
@@ -39,6 +39,7 @@
 		setContainerHeight : function(){
 			var h = $('.now').height();
 			this.container.height(h);
+			$('#scroll').getNiceScroll().resize();
 		},
 		scroll : function(e){
 			e.preventDefault();
@@ -82,7 +83,7 @@
 				if( $('.now').attr('id') === 'main' )
 					_this.home.hide();
 				else
-					_this.home.css('display','inline-block');
+					_this.home.show().css('display','inline-block');
 			});
 		},
 		workSlider : function(){
@@ -91,16 +92,19 @@
 			$('.goback').on('click', slideToWorks);
 
 			function slideToWork () {
+				$('.one-work').show();
 				$('.slider-works').css('margin-left','-1100px');
 				_this.setSectionHeight();
 			};
 
 			function slideToWorks (e) {
 				e.preventDefault();
-				$('.slider-works').css('margin-left','0');
 				setTimeout(function(){
-					$('.video-block').tubeplayer('destroy');
-				}, 600);
+					$('.one-work').hide();
+					_this.setSectionHeight();
+				}, 600)
+				$('.slider-works').css('margin-left','0');
+				
 			}
 
 		},
@@ -118,27 +122,16 @@
 			$('.title-job').text(result.title);
 			$('.one-work .description').html(result.description);
 			$('.img-block').hide();
-			if( result.id_video === '' ){
-				$('.video-block').hide();
-				$('.img-block').children('img').attr('src', result.file);
-			} else{
-				$('.video-block').show();
-				setTimeout(function(){
-					$('.video-block').tubeplayer({
-						width: 961, // the width of the player
-						height: 541, // the height of the player
-						allowFullScreen: "true", // true by default, allow user to go full screen
-						initialVideo: result.id_video, // the video that is loaded into the player
-						preferredQuality: "default" // preferred quality: default, small, medium, large, hd720
-					});
-					_this.container.height($('.one-work').height() + 100);
-					_this.setSectionHeight();
-				}, 600);
+			$('.video-block').hide();
+			if( result.id_video !== '' ){
+				result.id_video = result.id_video.substr(0, result.id_video.lastIndexOf("</iframe>"));
+				$('.video-block').show().html(result.id_video)
 			}
 			this.slideToWork();
 			
 		},
 		slideToWork : function(){
+			this.setSectionHeight();
 			$('.slider-works').css('margin-left','-1100px');
 		},
 		crateMap : function(){

@@ -75,14 +75,9 @@ section#work()
 												accept="image/*",
 												required)
 									.control-group
-										label.control-label(for='') Type
+										label.control-label(for='id_video') Видео
 									.controls
-										select(name="video")
-											option(value="") 
-											option(value="vimeo") Vimeo
-											option(value="youtube") Youtube
-									.controls
-										input#id_video.form-control(type='text',
-												name="id_video", placeholder="Только ID видео")
+										textarea#id_video.form-control(type='text',
+												name="id_video", class="input-xxlarge", style="height:80px;line-height:1;")
 									input(type="hidden", name="category", value="work")
 									button.btn.btn-primary(type='button', style="margin:10px 0 0;", ng-click="submit();") Go!

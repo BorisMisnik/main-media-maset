@@ -39,6 +39,8 @@ angular
 	.run(function(){
 		var $nav = $('.nav li');
 
+		
+			
 		$nav.on('click', function(){
 			var $this = $(this);
 			$nav.removeClass('active');

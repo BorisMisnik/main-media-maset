@@ -97,7 +97,7 @@ section#about()
 									.control-group
 										label.control-label(for='') Язык
 										.controls
-											select(name="language",required)
+											select(name="language", ng-model="modal.languageChange")
 												option(value="ru") Русский
 												option(value="en") English
 									.control-group	

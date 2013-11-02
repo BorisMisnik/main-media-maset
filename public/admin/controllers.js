@@ -83,7 +83,7 @@ function ControllerAbout($scope, Text, Items){
 			type:'saveText',
 			name:'aboutText', 
 			text: val,
-			language : $scope.languageText
+			languageChange : $scope.languageText
 		}, function(res){}); //save new text
 	};
 
@@ -114,7 +114,8 @@ function ControllerAbout($scope, Text, Items){
 			job : worker.job,
 			index : worker.index,
 			img : worker.img,
-			id : worker._id
+			id : worker._id,
+			languageChange : worker.language
 		};
 		console.log($scope.modal)  
 	};
@@ -170,6 +171,7 @@ function ControllerService($scope, Text, Items){
 			title : service.title,
 			index : service.index,
 			description : service.description,
+			languageChange : service.language,
 			id : service._id
 		}
 	}
