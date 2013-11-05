@@ -61,3 +61,6 @@ input[type="radio"]:first-child{
 iframe body{
 	background-color: #000 !important;
 }
+table img{
+	max-width: 100px;
+}
