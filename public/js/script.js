@@ -91,14 +91,10 @@
 			$('#works').on('click', '.div', $.proxy(app.showWork,app));
 			$('.goback').on('click', slideToWorks);
 
-			function slideToWork () {
-				$('.one-work').show();
-				$('.slider-works').css('margin-left','-1100px');
-				_this.setSectionHeight();
-			};
 
 			function slideToWorks (e) {
 				e.preventDefault();
+				$('.link-works').trigger('click');
 				setTimeout(function(){
 					$('.one-work').hide();
 					_this.setSectionHeight();
@@ -131,8 +127,13 @@
 			
 		},
 		slideToWork : function(){
-			this.setSectionHeight();
+			var _this = this;
 			$('.slider-works').css('margin-left','-1100px');
+			setTimeout(function(){
+				$('.one-work').show();
+				_this.setSectionHeight();
+			}, 600)
+			
 		},
 		crateMap : function(){
 			var mapOptions = {

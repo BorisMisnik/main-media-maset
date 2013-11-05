@@ -35,15 +35,4 @@ angular
 				otherwise({
 					redirectTo: '/main'
 				});
-	}])
-	.run(function(){
-		var $nav = $('.nav li');
-
-		
-			
-		$nav.on('click', function(){
-			var $this = $(this);
-			$nav.removeClass('active');
-			$this.addClass('active'); // add class active to current link
-		});
-	});
+	}]);

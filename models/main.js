@@ -15,7 +15,10 @@ exports.saveText = function(query, set, callback){
 	collection = collection || require('./index').collection;
 	collection.update(
 		 query, set, {},function(err, result) { // result
-			if( err )callback(err);
+			if( err ) callback(err);
+			console.log('save text result', result)
+			console.log('save text query', query)
+			console.log('save text set', set)
 	});
 };
 

@@ -1,13 +1,14 @@
-function AppCtrl($scope){
+function AppCtrl($scope, $location){
 	$scope.$on('$routeChangeSuccess', function(){
 		setTimeout(function(){
-			$('.textarea').wysihtml5({ // init text editor
-				stylesheets: false,
-				'font-styles': false,
-				lists : false,
-				emphasis : false
-			});
-		}, 100);
+                        $('.textarea').wysihtml5({ // init text editor
+                                stylesheets: false,
+                                'font-styles': false,
+                                lists : false,
+                                emphasis : false
+                        });
+            }, 100);
+		$scope.path = $location.path();
 	});
 }
 function ControllerMain($scope, Text, Items){
@@ -70,7 +71,8 @@ function ControllerAbout($scope, Text, Items){
 		}, function(res){ // get text
 			if( !res.data[0] ) return;
 			var text = res.data[0].aboutText;
-			 updateEditor(text); // update text editor
+			console.log(text)
+			updateEditor(text); // update text editor
 		});
 	};
 	getText();
@@ -145,7 +147,7 @@ function ControllerService($scope, Text, Items){
 			type:'saveText',
 			name:'serviceText', 
 			text: val,
-			language : $scope.languageText
+			language : $scope.languageText,
 		}, function(res){}); //save new text
 	};
 
@@ -172,6 +174,7 @@ function ControllerService($scope, Text, Items){
 			index : service.index,
 			description : service.description,
 			languageChange : service.language,
+			img : service.img,
 			id : service._id
 		}
 	}

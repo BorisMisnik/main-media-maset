@@ -89,10 +89,11 @@ section#service
 											label.control-label(for='') Описание
 											.controls
 												textarea(placeholder='Enter text ...', name="description", value="{{modal.description}}")
-													|"{{modal.description}}"
+													|{{modal.description}}
 										.control-group	
 											label.control-label() Изображение
 											.controls
+												img(ng-src="{{modal.img}}", alt="")
 												input(type='file', style="display:block;", accept="image/*", name="image")
 												input(type="hidden", value="{{modal.id}}", name="_id")
 												input(type="hidden", value="service", name="type")

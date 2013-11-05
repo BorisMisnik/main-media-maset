@@ -32,17 +32,21 @@ html(ng-app="admin", ng-controller="AppCtrl")
 				.navbar-inner
 					a.brand(href='#') Main Media Master
 					ul.nav
-						li.active
+						li(ng-class="{true:'active'}[path=='/main']")
 							a(href='#/main') Main
-						li
+						li(ng-class="{true:'active'}[path=='/about']")
 							a(href='#/about') About
-						li
+						li(ng-class="{true:'active'}[path=='/service']")
 							a(href='#/service') Service
-						li
+						li(ng-class="{true:'active'}[path=='/work']")
 							a(href='#/work') Work
-						li
+						li(ng-class="{true:'active'}[path=='/contacts']")
 							a(href='#/contacts') Contacts
 
 		.container
+			if save == true
+				.alert.alert-success.alert-block
+					button(type="button",class="close",data-dismiss="alert") &times;
+					|Сохранено
 			.row
 				.span-12(ng-view)

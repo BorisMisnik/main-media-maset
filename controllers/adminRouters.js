@@ -57,7 +57,7 @@ exports.saveIteam = function(req, res){
 		var index = req.body.index;
 		var language = req.body.language;
 		var query = {};
-
+		var url = '';
 		model.saveImage(name, path, function(err, result){
 			if( err ) return console.log( err );
 			var img = '/uploads/' + name;
@@ -70,6 +70,7 @@ exports.saveIteam = function(req, res){
 					description : req.body.description,
 					language : language
 				}
+				url = '/admin#service';
 			}
 			else if ( req.body.name && req.body.job ){ // worker
 				query = {
@@ -80,6 +81,7 @@ exports.saveIteam = function(req, res){
 					index:index,
 					language : language
 				};
+				url = '/admin#about';
 			} 
 			else if( req.body.category === 'socialButton' ){ // fotter buttons
 				query = {
@@ -89,6 +91,7 @@ exports.saveIteam = function(req, res){
 					index: index,
 					language : language
 				};
+				url = '/admin#contacts';
 			}
 			else if( req.body.category === 'work' ){
 				console.log(req.body.lognDescription)
@@ -101,17 +104,20 @@ exports.saveIteam = function(req, res){
 					description : req.body.lognDescription,
 					id_video : req.body.id_video
 				}
+				url = '/admin#work';
 			}
 			else {
 				query = {
 					type:'clients', 
 					img : img,  
 					index:index}; // client
+				url = '/admin#main';
 			}
 
 			model.saveIteam(query, function(err, result){
 				if( err ) return console.log( err );
-				res.redirect('/admin');
+				req.session.update = true;
+				res.redirect(url);
 			});
 		});
 	} else if( req.body.category ){
@@ -124,6 +130,7 @@ exports.updateItem = function(req, res){
 	var path = req.files.image.path;
 	var set = {};
 	var query = {_id : new ObjectID(req.body._id)};
+	var url = '';
 	if( req.body.type === 'workers' ){
 		set = {
 			type:'workers', 
@@ -132,6 +139,7 @@ exports.updateItem = function(req, res){
 			index: req.body.index,
 			language : req.body.language
 		}
+		url = '/admin#about';
 	}
 	else if( req.body.type === 'service' ){
 		set = {
@@ -141,6 +149,7 @@ exports.updateItem = function(req, res){
 			description: req.body.description,
 			language : req.body.language
 		}
+		url = '/admin#service';
 	}
 	else if ( req.body.type === 'socialButton' ){
 		set = {
@@ -148,6 +157,7 @@ exports.updateItem = function(req, res){
 			index: req.body.index,
 			link: req.body.link
 		}
+		url = '/admin#contacts';
 	} 
 	else if ( req.body.type === 'work' ){
 		set = {
@@ -158,6 +168,7 @@ exports.updateItem = function(req, res){
 			description : req.body.lognDescription,
 			id_video : req.body.id_video
 		}
+		url = '/admin#work';
 	}
 	if( name !== '' && path !== '' ){
 		model.saveImage(name, path, function(err, result){
@@ -166,14 +177,16 @@ exports.updateItem = function(req, res){
 			set.img = img;
 			model.updateItem(query, set, function(err, result){
 				if( err ) return console.log( err );
-				res.redirect('/admin');
+				req.session.update = true;
+				res.redirect(url);
 			});
 		});
 	}
 	else {
 		model.updateItem(query, set, function(err, result){
 			if( err ) return console.log( err );
-			res.redirect('/admin');
+			req.session.update = true;
+			res.redirect(url);
 		});
 	}
 };

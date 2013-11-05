@@ -69,6 +69,7 @@ section#contacts()
 				.control-group	
 					label.control-label() Изображение
 					.controls
+					img(ng-src="{{modal.img}}", alt="")
 					input(type='file', style="display:block;", accept="image/*", name="image")
 			.modal-footer
 				button.btn(data-dismiss='modal', aria-hidden='true') Close

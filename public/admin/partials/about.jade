@@ -103,6 +103,7 @@ section#about()
 									.control-group	
 										label.control-label() Фото
 											.controls
+											img(ng-src="{{modal.img}}")
 											input(type='file', style="display:block;", accept="image/*", name="image", value="{{modal.img}}")
 											input(type="hidden", value="{{modal.id}}", name="_id")
 											input(type="hidden", value="workers", name="type")
