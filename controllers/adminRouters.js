@@ -22,11 +22,11 @@ exports.saveText = function(req, res){
 	var name = 	req.body.name;
 	var query = {};
 	query[name] = { $exists: true };
-	query.language = req.body.language;
+	query.language = req.body.language || req.body.languageChange;
 
 	var set = {};
 	set[name] = req.body.text
-	set.language = req.body.language;
+	set.language = req.body.language || req.body.languageChange;
 
 	model.saveText(query, set, function(err){
 		if( err ) return res.send({error : err});
