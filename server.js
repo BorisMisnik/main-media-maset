@@ -10,7 +10,7 @@ var index = require('./controllers/index')
   , adminRouters = require('./controllers/adminRouters.js')
 
 // configure Express
-app.set('port', process.env.PORT || 5000); 
+app.set('port', process.env.PORT || 80); 
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
 app.use(express.bodyParser());
