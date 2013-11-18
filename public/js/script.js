@@ -138,7 +138,7 @@
 			$('.slider-works').css('margin-left','-1100px');
 			setTimeout(function(){
 				_this.setSectionHeight();
-			}, 600)
+			}, 0)
 			
 		},
 		crateMap : function(){
