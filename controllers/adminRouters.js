@@ -198,3 +198,15 @@ exports.removeItem = function(req, res){
 		if(!err && result) res.send({result : 'ok'});
  	});
 };
+
+exports.getNumber = function(req, res){
+	model.getNumber(function(err, result){
+		res.send(result[0]);
+	});
+};
+
+exports.updateNumber = function(req, res){
+	model.updateNumber(req.body.number, function(){
+		res.send('ok');
+	});
+};

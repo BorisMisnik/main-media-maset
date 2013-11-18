@@ -35,12 +35,12 @@ section#contacts()
 		.control-group
 			label.control-label(for='index') Индекс
 			.controls
-			input#index.form-control(type='text', placeholder='Index', name="index", , class="input-xlarge", required)
+			input#index.form-control(type='text', placeholder='Index', name="index", class="input-xlarge", required)
 		.control-group
 			label.control-label(for='link') Ссылка
 			.controls
 			input#link.form-control(type='text', placeholder='Ссылка', name="link", , class="input-xlarge", required)
-		.control-group	
+		.control-group	 
 			label.control-label() Изображение
 			.controls
 			input(type='file', style="display:block;", accept="image/*", name="image")
@@ -48,7 +48,14 @@ section#contacts()
 			label.control-label()
 			.controls
 				input(type="hidden", name="category", value="socialButton")
-				input(type='submit', class=".btn.btn-primary") Save
+				input(type='submit', class="btn btn-primary") Save
+
+	h4(style="float:none;clear:both;") Номер телефона
+	.well(style="display:inline-block;")
+		input(type="text", name="number", placeholder="Номер", class="input-xlarge", value="{{number}}", id="number")
+		br
+		button(class="btn btn-primary", ng-click="updateNumber();") Save	
+
 
 	#contactModal.modal.hide.fade(tabindex='-1', role='dialog', aria-labelledby='myModalLabel', aria-hidden='true')
 		form(method="post", 

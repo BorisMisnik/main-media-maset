@@ -241,6 +241,19 @@ function ControllerContacts($scope, Text, Items){
 		$scope.contacts = res.data;
 	});
 
+	Items.query({type:'number'}, function(res){
+		$scope.number = res.value;
+	});
+
+	$scope.updateNumber = function(req, res){
+		$.post('/admin/updateNumber', {number : $('#number').val()}, function(response){
+			Items.query({type:'number'}, function(res){
+				$scope.number = res.value;
+			});
+		});
+	};	
+
+
 }
 function ControllerWork($scope, $location, Items){
 	$scope.uploads = [];

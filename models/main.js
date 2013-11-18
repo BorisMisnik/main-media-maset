@@ -87,3 +87,38 @@ exports.removeIteam = function(id, callback){
 		if( result ) callback(null ,result);
 	});
 };
+
+exports.getNumber = function(callback){
+	collection = collection || require('./index').collection;
+	var query = {
+		type : 'number'
+	};
+	collection.find(query).toArray(function(err, items) {
+		if( err ) return console.warn( err );
+		// callback(err, items);
+		if( items.length === 0 ){
+			var data = {
+				type : 'number',
+				value : ''
+			}
+			collection.insert(data, function(result){
+			});
+		}
+		else
+			callback(null, items);
+	});
+};
+
+exports.updateNumber = function(data, callback){
+	var query = {
+		type : 'number'
+	};
+	var set = {
+		value : data
+	};
+	collection = collection || require('./index').collection;
+	collection.update(query, {$set:set},{},function(err, result){
+		if( err ) return callback( err );
+		if( result ) callback();
+	});
+};

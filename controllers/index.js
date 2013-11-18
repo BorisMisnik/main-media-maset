@@ -105,6 +105,14 @@ exports.index = function(req, res){
 				page.links = result;
 				callback(null);
 			});
+		},
+		function (callback){
+			model.getNumber(function(err, result){
+				if( err ) return callback(err, null);
+				page.number = result[0].value;
+				console.log( 'NUMBER', result[0].value );
+				callback(null);
+			});	
 		}
 	], function(err, callback){
 		console.log(page)

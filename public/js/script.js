@@ -25,7 +25,11 @@
 				if(  window.location.hash !== '#main' )
 					this.home.css('display', 'inline-block');
 			}
-
+			var text = $('.nubmer').find('strong').text();
+			console.log(text);
+			text = text.replace(',', '<br \/>');
+			console.log(text)
+			$('.nubmer strong').html(text);
 			
 		},
 		setSectionHeight : function(){
@@ -123,7 +127,10 @@
 				result.id_video = result.id_video.substr(0, result.id_video.lastIndexOf("</iframe>"));
 				$('.video-block').show().html(result.id_video)
 			}
-			this.slideToWork();
+			setTimeout(function(){
+				_this.slideToWork();
+			}, 1500);
+			
 			
 		},
 		slideToWork : function(){
