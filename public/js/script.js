@@ -129,15 +129,14 @@
 			}
 			setTimeout(function(){
 				_this.slideToWork();
-			}, 1500);
-			
+			}, 1000);
+			$('.one-work').show();
 			
 		},
 		slideToWork : function(){
 			var _this = this;
 			$('.slider-works').css('margin-left','-1100px');
 			setTimeout(function(){
-				$('.one-work').show();
 				_this.setSectionHeight();
 			}, 600)
 			
