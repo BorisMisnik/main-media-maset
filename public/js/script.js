@@ -127,18 +127,17 @@
 				result.id_video = result.id_video.substr(0, result.id_video.lastIndexOf("</iframe>"));
 				$('.video-block').show().html(result.id_video)
 			}
-			setTimeout(function(){
-				_this.slideToWork();
-			}, 1000);
-			$('.one-work').show();
+			this.slideToWork();
 			
 		},
 		slideToWork : function(){
 			var _this = this;
 			$('.slider-works').css('margin-left','-1100px');
 			setTimeout(function(){
+				$('.one-work').show();
 				_this.setSectionHeight();
-			}, 0)
+				$('a[href="#works"]').click();
+			}, 600)
 			
 		},
 		crateMap : function(){
