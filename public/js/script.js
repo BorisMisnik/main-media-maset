@@ -134,12 +134,23 @@
 			var _this = this;
 			$('.slider-works').css('margin-left','-1100px');
 			setTimeout(function(){
+				_this.loadImage();
 				$('#works').css('height', 'auto');
 				$('.one-work').show();
-				// _this.setSectionHeight();
+				_this.setSectionHeight();
 				$('a[href="#works"]').click();
+				// load images 
+				
 			}, 600)
 			
+		},
+		loadImage : function(){
+			var _this = this;
+			$('.one-work img').load(function(){
+				_this.setSectionHeight();
+			}).each(function() {
+  				if(this.complete) $(this).load();
+			});
 		},
 		crateMap : function(){
 			var mapOptions = {
