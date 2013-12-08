@@ -134,8 +134,9 @@
 			var _this = this;
 			$('.slider-works').css('margin-left','-1100px');
 			setTimeout(function(){
+				$('#works').css('height', 'auto');
 				$('.one-work').show();
-				_this.setSectionHeight();
+				// _this.setSectionHeight();
 				$('a[href="#works"]').click();
 			}, 600)
 			
