@@ -11,9 +11,9 @@ exports.index = function(req, res){
 
 	var titles = [];
 	if( lang === 'ru' )
-		titles = ['О нас', 'Сервисы', 'Работы', 'Контакты', 'Читать дальше'];
+		titles = ['О нас', 'Сервисы', 'Работы', 'Контакты', 'Читать дальше', 'Назад'];
 	else
-		titles = ['About', 'Service', 'Works', 'Contacts', 'Read more'];
+		titles = ['About', 'Service', 'Works', 'Contacts', 'Read more', 'go back'];
 
 	page.lang = lang;
 	page.titles = titles;

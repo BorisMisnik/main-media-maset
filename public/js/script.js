@@ -217,14 +217,14 @@
 				]);
 			});
   			// page works
-  			videojs('works_player',{ "controls": true, "autoplay": false, "preload": "auto" }).ready(function(){
-  				var myPlayer = this;
-  				myPlayer.src([
-					{ type: "video/webm", src: "video/iPhone5.webm" },
-					{ type: "video/ogg", src: "video/iPhone5.ogv" },
-					{ type: "video/mp4", src: "video/iPhone5.mp4" },
-				]);
-			});
+  	// 		videojs('works_player',{ "controls": true, "autoplay": false, "preload": "auto" }).ready(function(){
+  	// 			var myPlayer = this;
+  	// 			myPlayer.src([
+			// 		{ type: "video/webm", src: "video/iPhone5.webm" },
+			// 		{ type: "video/ogg", src: "video/iPhone5.ogv" },
+			// 		{ type: "video/mp4", src: "video/iPhone5.mp4" },
+			// 	]);
+			// });
 
 		})()
 	};
